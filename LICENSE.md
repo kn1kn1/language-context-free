@@ -1,4 +1,4 @@
-Copyright (c) 2014 GitHub Inc.
+Copyright (c) 2014 Kenichi Kanai.
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@ a copy of this software and associated documentation files (the
   --------------------------------------------------------------------
 
   This package was derived from a TextMate bundle located at
-  https://github.com/textmate/context-free.tmbundle and distributed under the 
+  https://github.com/textmate/context-free.tmbundle and distributed under the
   following license, located in `README.mdown`:
 
   Permission to copy, use, modify, sell and distribute this
