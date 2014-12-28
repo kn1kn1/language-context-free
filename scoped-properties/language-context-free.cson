@@ -1,0 +1,5 @@
+'.source.context-free':
+  'editor':
+    'increaseIndentPattern': '^.*[\\{\\[][^\\}\\]]*$'
+    'decreaseIndentPattern': '^(.*\\*/)?\\s*[\\}\\]]\\s*$'
+    'foldEndPattern': '^\\s*[\\}\\]]'

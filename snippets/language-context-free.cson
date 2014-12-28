@@ -1,0 +1,22 @@
+'.source.context-free':
+  'Background Directive':
+    'prefix': 'b'
+    'body': 'background {$1}'
+  'Circle Primitive':
+    'prefix': 'C'
+    'body': 'CIRCLE {$1}'
+  'Include Directive':
+    'prefix': 'i'
+    'body': 'include ${1:${2:file}.cfdg}'
+  'Rule':
+    'prefix': 'r'
+    'body': 'rule ${1:shape} ${2:weight }{\n\t$3\n}'
+  'Square Primitive':
+    'prefix': 'S'
+    'body': 'SQUARE {$1}'
+  'Startshape Directive':
+    'prefix': 's'
+    'body': 'startshape ${1:shape}'
+  'Triangle Primitive':
+    'prefix': 'T'
+    'body': 'TRIANGLE {$1}'
