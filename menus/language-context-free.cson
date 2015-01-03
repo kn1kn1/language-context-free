@@ -1,0 +1,18 @@
+'context-menu':
+  '.cfdg-image-view': [
+    {label: 'Save As\u2026', command: 'core:save-as'}
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'Context Free'
+      'submenu': [
+        {
+          'label': 'Render'
+          'command': 'context-free:render'
+        }
+      ]
+    ]
+  }
+]

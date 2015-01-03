@@ -4,7 +4,17 @@
   "description": "Atom language support for Context Free",
   "repository": "https://github.com/kn1kn1/language-context-free",
   "license": "MIT",
+  "main": "./lib/context-free-render",
+  "activationCommands": {
+    "atom-workspace": "context-free:render"
+  },
   "engines": {
     "atom": "*"
+  },
+  "dependencies": {
+    "atom-space-pen-views": "^0.20.0",
+    "fs-plus": "2.x",
+    "pathwatcher": "^2.3.2",
+    "underscore-plus": "1.x"
   }
 }
