@@ -81,16 +81,27 @@ module.exports = ContextFreeRender =
       env: env
     stdout = (output) -> console.log(output)
     stderr = (err) -> console.log(err)
+    done = false
+    timeout = 3000
     exit = (code) =>
       console.log("#{command} exited with #{code}")
+      done = true
       unless code is 0
         atom.confirm
-          message: "#{command} exited with the wrong return code #{code}"
+          message: "#{command} exited with #{code}"
           buttons: ["Ok"]
         return
       @tmpPngFiles.push(outFilePath)
       @sendOpenCommand(cfdgFileName, outFilePath)
     cfdgProcess = new BufferedProcess({command, args, options, stdout, stderr, exit})
+    callback = () =>
+      console.log("done: #{done}")
+      unless done
+        cfdgProcess.kill()
+        atom.confirm
+          message: "render cfdg command timeout."
+          buttons: ["Ok"]
+    setTimeout callback, timeout
 
   sendOpenCommand: (cfdgFileName, outFilePath) ->
     uri = @uriForFile(cfdgFileName, outFilePath)
