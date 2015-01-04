@@ -39,10 +39,6 @@ class CfdgImageEditor
 
   destroy: ->
     @subscriptions.dispose()
-    # filePath = @getPath()
-    # return unless filePath?
-    # return unless fs.existsSync(filePath)
-    # fs.unlinkSync(filePath)
 
   # Retrieves the filename of the open file.
   #
