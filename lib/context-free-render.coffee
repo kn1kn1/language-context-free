@@ -6,6 +6,11 @@ path = require 'path'
 fs = require 'fs-plus'
 
 module.exports = ContextFreeRender =
+  config:
+    renderTimeoutInMillis:
+      type: 'integer'
+      default: 3000
+      minimum: 0
   subscriptions: null
   tmpPngFiles: []
 
@@ -81,8 +86,8 @@ module.exports = ContextFreeRender =
       env: env
     stdout = (output) -> console.log(output)
     stderr = (err) -> console.log(err)
+
     done = false
-    timeout = 3000
     exit = (code) =>
       console.log("#{command} exited with #{code}")
       done = true
@@ -93,8 +98,17 @@ module.exports = ContextFreeRender =
         return
       @tmpPngFiles.push(outFilePath)
       @sendOpenCommand(cfdgFileName, outFilePath)
+
+    timeout = atom.config.get('language-context-free.renderTimeoutInMillis')
+    console.log("timeout: #{timeout}")
+
     cfdgProcess = new BufferedProcess({command, args, options, stdout, stderr, exit})
-    callback = () =>
+
+    # do not timeout when the setting value is 0
+    return unless timeout?
+    return if timeout is 0
+
+    callback = () ->
       console.log("done: #{done}")
       unless done
         cfdgProcess.kill()
