@@ -16,5 +16,14 @@
     "fs-plus": "2.x",
     "pathwatcher": "^2.3.2",
     "underscore-plus": "1.x"
-  }
+  },
+  "keywords": [
+    "language",
+    "context free",
+    "contextfree",
+    "cfdg",
+    "atom",
+    "editor",
+    "syntax"
+  ]
 }
