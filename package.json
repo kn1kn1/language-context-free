@@ -1,6 +1,6 @@
 {
   "name": "language-context-free",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Atom language support for Context Free",
   "repository": "https://github.com/kn1kn1/language-context-free",
   "license": "MIT",
