@@ -6,9 +6,9 @@ path = require 'path'
 fs = require 'fs-plus'
 
 platform = process.platform
-console.log('platform: ' + platform)
+console.log 'platform: ' + platform
 packagePath = atom.packages.resolvePackagePath 'language-context-free'
-console.log('packagePath: ' + packagePath)
+console.log 'packagePath: ' + packagePath
 
 module.exports = ContextFreeRender =
   config:
@@ -46,43 +46,43 @@ module.exports = ContextFreeRender =
     unless platform is 'darwin' or platform is 'linux'
       atom.confirm
         message: "render not supported in #{platform}."
-        buttons: ["Ok"]
+        buttons: ["OK"]
       return
 
     editor = atom.workspace.getActiveTextEditor()
     return unless editor?
 
     filePath = editor.getPath()
-    console.log('filePath: ' + filePath)
+    console.log 'filePath: ' + filePath
     return unless filePath?
 
-    fileName = path.basename(filePath)
-    console.log('fileName: ' + fileName)
+    fileName = path.basename filePath
+    console.log 'fileName: ' + fileName
     return unless fileName?
 
     extName = path.extname(fileName).toLowerCase()
-    console.log('extName: ' + extName)
+    console.log 'extName: ' + extName
     return unless extName?
     return unless extName is '.cfdg'
 
     packagePath = atom.packages.resolvePackagePath 'language-context-free'
-    console.log('packagePath: ' + packagePath)
+    console.log 'packagePath: ' + packagePath
 
     cwd = process.cwd
     env = process.env
     @execCfdg fileName, filePath, cwd, env
 
   execCfdg: (cfdgFileName, cfdgFilePath, cwd, env) ->
-    command = atom.config.get('language-context-free.cfdgCommandPath')
-    console.log("command: #{command}")
+    command = atom.config.get 'language-context-free.cfdgCommandPath'
+    console.log "command: #{command}"
     if !command
       atom.confirm
         message: "you need to set 'cfdg Command Path' in the Settings panel."
-        buttons: ["Ok"]
+        buttons: ["OK"]
       return
 
-    ldLibraryPath = atom.config.get('language-context-free.ldLibraryPath')
-    console.log("ldLibraryPath: #{ldLibraryPath}")
+    ldLibraryPath = atom.config.get 'language-context-free.ldLibraryPath'
+    console.log "ldLibraryPath: #{ldLibraryPath}"
     if ldLibraryPath
       ldLibraryPathKey = if platform is 'darwin' then 'DYLD_LIBRARY_PATH' else 'LD_LIBRARY_PATH'
       env[ldLibraryPathKey] = ldLibraryPath
@@ -92,84 +92,84 @@ module.exports = ContextFreeRender =
     options =
       cwd: cwd
       env: env
-    stdout = (output) -> console.log(output)
-    stderr = (err) -> console.log(err)
+    stdout = (output) -> console.log output
+    stderr = (err) -> console.log err
 
     done = false
     exit = (code) =>
-      console.log("#{command} exited with #{code}")
+      console.log "#{command} exited with #{code}"
       done = true
       unless code is 0
         atom.confirm
           message: "#{command} exited with #{code}"
-          buttons: ["Ok"]
+          buttons: ["OK"]
         return
-      @tmpPngFiles.push(outFilePath)
-      @sendOpenCommand(cfdgFileName, outFilePath)
+      @tmpPngFiles.push outFilePath
+      @sendOpenCommand cfdgFileName, outFilePath
 
-    timeout = atom.config.get('language-context-free.renderTimeoutInMillis')
-    console.log("timeout: #{timeout}")
+    timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
+    console.log "timeout: #{timeout}"
 
-    cfdgProcess = new BufferedProcess({command, args, options, stdout, stderr, exit})
+    cfdgProcess = new BufferedProcess {command, args, options, stdout, stderr, exit}
 
     # do not timeout when the setting value is 0
     return unless timeout?
     return if timeout is 0
 
     callback = () ->
-      console.log("done: #{done}")
+      console.log "done: #{done}"
       unless done
         cfdgProcess.kill()
         atom.confirm
           message: "render cfdg command timeout."
-          buttons: ["Ok"]
+          buttons: ["OK"]
     setTimeout callback, timeout
 
   sendOpenCommand: (cfdgFileName, outFilePath) ->
-    uri = @uriForFile(cfdgFileName, outFilePath)
-    console.log('uri: ' + uri)
+    uri = @uriForFile cfdgFileName, outFilePath
+    console.log 'uri: ' + uri
     previousActivePane = atom.workspace.getActivePane()
     atom.workspace.open(uri, split: 'right', searchAllPanes: true).done (openedEditor) ->
-      console.log('openedEditor.getTitle()): ' + openedEditor.getTitle())
-      console.log('openedEditor.getUri()): ' + openedEditor.getUri())
-      console.log('openedEditor.getPath()): ' + openedEditor.getPath())
+      console.log 'openedEditor.getTitle()): ' + openedEditor.getTitle()
+      console.log 'openedEditor.getUri()): ' + openedEditor.getUri()
+      console.log 'openedEditor.getPath()): ' + openedEditor.getPath()
       previousActivePane.activate()
 
   openEditor: (uriToOpen) ->
-    console.log('addOpener - uriToOpen: ' + uriToOpen)
+    console.log 'addOpener - uriToOpen: ' + uriToOpen
     try
-      {protocol, host, pathname, query} = url.parse(uriToOpen, true)
+      {protocol, host, pathname, query} = url.parse uriToOpen, true
     catch error
-      console.log('error')
+      console.log 'error'
       return
-    console.log('protocol: ' + protocol + ', host: ' + host + ', pathname: ' + pathname + ', query: ' + query)
+    console.log 'protocol: ' + protocol + ', host: ' + host + ', pathname: ' + pathname + ', query: ' + query
     return unless protocol is 'context-free-render:'
 
     cfdgFileName = query['cfdg']
-    console.log('cfdgFileName: ' + cfdgFileName)
+    console.log 'cfdgFileName: ' + cfdgFileName
 
     try
-      pathname = decodeURI(pathname) if pathname
+      pathname = decodeURI pathname if pathname
     catch error
-      console.log('error')
+      console.log 'error'
       return
-    console.log('pathname: ' + pathname)
+    console.log 'pathname: ' + pathname
 
-    new CfdgImageEditor(cfdgFileName, pathname)
+    new CfdgImageEditor cfdgFileName, pathname
 
   uriForFile: (cfdgFileName, filePath) ->
     "context-free-render://filepath#{filePath}?cfdg=#{cfdgFileName}"
 
   rmTmpPngFile: ->
     for tmpPngFile in @tmpPngFiles
-      console.log('tmpPngFile: ' + tmpPngFile)
+      console.log 'tmpPngFile: ' + tmpPngFile
       @rmFile tmpPngFile
 
   rmFile: (filePath) ->
     return unless filePath?
-    return unless fs.existsSync(filePath)
-    fs.unlinkSync(filePath)
+    return unless fs.existsSync filePath
+    fs.unlinkSync filePath
 
   dumpObj: (obj) ->
     for key, value of obj
-      console.log ("key: " + key + ", value: " + value)
+      console.log "key: " + key + ", value: " + value
