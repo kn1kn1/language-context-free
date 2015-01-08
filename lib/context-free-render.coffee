@@ -5,41 +5,29 @@ url = require 'url'
 path = require 'path'
 fs = require 'fs-plus'
 
-getDefaultCfdgPath = (platform, packagePath) ->
-  return '' unless platform is 'darwin'
-  return path.join(packagePath, 'assets', 'cfdg3', platform, 'cfdg')
-
-getDefaultLdLibraryPath = (platform, packagePath) ->
-  return '' unless platform is 'darwin'
-  console.log('packagePath: ' + packagePath)
-  return path.join(packagePath, 'assets', 'cfdg3', platform, 'lib')
-
 platform = process.platform
 console.log('platform: ' + platform)
 packagePath = atom.packages.resolvePackagePath 'language-context-free'
 console.log('packagePath: ' + packagePath)
-defaultCfdgPath = getDefaultCfdgPath platform, packagePath
-console.log('defaultCfdgPath: ' + defaultCfdgPath)
-
-defaultLdLibraryPath = getDefaultLdLibraryPath platform, packagePath
-console.log('defaultLdLibraryPath: ' + defaultLdLibraryPath)
 
 module.exports = ContextFreeRender =
   config:
-    cmdgCommandPath:
+    cfdgCommandPath:
       type: 'string'
       title: 'cfdg Command Path'
-      default: defaultCfdgPath
-      description: '(Optional) path of cfdg command.'
+      default: ''
+      description: 'path of cfdg command.'
     ldLibraryPath:
       title: 'LD_LIBRARY_PATH'
       type: 'string'
-      default: defaultLdLibraryPath
+      default: ''
       description: '(Optional) directory where libPng dynamic library should be searched for first.'
     renderTimeoutInMillis:
       type: 'integer'
       default: 3000
       minimum: 0
+      description: '(Optional) duration in msec to timeout rendering.'
+
   subscriptions: null
   tmpPngFiles: []
 
@@ -55,7 +43,7 @@ module.exports = ContextFreeRender =
     @rmTmpPngFile()
 
   render: ->
-    unless platform is 'darwin'
+    unless platform is 'darwin' or platform is 'linux'
       atom.confirm
         message: "render not supported in #{platform}."
         buttons: ["Ok"]
@@ -84,32 +72,20 @@ module.exports = ContextFreeRender =
     env = process.env
     @execCfdg fileName, filePath, cwd, env
 
-  execChmod: (cwd, env, callback) ->
-    command = "chmod"
-    args = ['+x', 'cfdg']
-    options =
-      cwd: cwd
-      env: env
-    stdout = (output) -> console.log(output)
-    stderr = (err) -> console.log(err)
-    exit = (code) =>
-      console.log("#{command} exited with #{code}")
-      callback(code)
-    chmodProcess = new BufferedProcess({command, args, options, stdout, stderr, exit})
-
   execCfdg: (cfdgFileName, cfdgFilePath, cwd, env) ->
-    command = atom.config.get('language-context-free.cmdgCommandPath')
+    command = atom.config.get('language-context-free.cfdgCommandPath')
     console.log("command: #{command}")
     if !command
       atom.confirm
-        message: "set 'cfdg Command Path' in the Settings panel."
+        message: "you need to set 'cfdg Command Path' in the Settings panel."
         buttons: ["Ok"]
       return
 
     ldLibraryPath = atom.config.get('language-context-free.ldLibraryPath')
     console.log("ldLibraryPath: #{ldLibraryPath}")
     if ldLibraryPath
-      env['DYLD_LIBRARY_PATH'] = ldLibraryPath
+      ldLibraryPathKey = if platform is 'darwin' then 'DYLD_LIBRARY_PATH' else 'LD_LIBRARY_PATH'
+      env[ldLibraryPathKey] = ldLibraryPath
 
     outFilePath = '/tmp/atom-' + cfdgFileName + ".png"
     args = ['-s', '400', cfdgFilePath, outFilePath]

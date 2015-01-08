@@ -5,9 +5,6 @@
   "repository": "https://github.com/kn1kn1/language-context-free",
   "license": "MIT",
   "main": "./lib/context-free-render",
-  "activationCommands": {
-    "atom-workspace": "context-free:render"
-  },
   "engines": {
     "atom": "*"
   },
