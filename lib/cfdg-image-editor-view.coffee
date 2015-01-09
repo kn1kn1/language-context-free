@@ -1,3 +1,4 @@
+utils = require './utils'
 _ = require 'underscore-plus'
 path = require 'path'
 fs = require 'fs-plus'
@@ -106,28 +107,10 @@ class CfdgImageEditorView extends ScrollView
     console.log('saveFilePath: ' + saveFilePath)
 
     if dstFilePath = atom.showSaveDialogSync(saveFilePath)
-      @copyFile srcFilePath, dstFilePath, (err) ->
+      utils.copyFile srcFilePath, dstFilePath, (err) ->
         unless err?
           atom.workspace.open(dstFilePath)
         else
           atom.confirm
             message: 'error: ' + err
             buttons: ["Ok"]
-
-  copyFile: (source, target, cb) ->
-    cbCalled = false;
-
-    done = (err) ->
-      return if cbCalled
-      cb(err)
-      cbCalled = true
-
-    rd = fs.createReadStream(source)
-    rd.on "error", (err) ->
-      done(err)
-    wr = fs.createWriteStream(target)
-    wr.on "error", (err) ->
-      done(err)
-    wr.on "close", (err) ->
-      done()
-    rd.pipe(wr)

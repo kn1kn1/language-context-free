@@ -1,3 +1,4 @@
+utils = require './utils'
 path = require 'path'
 fs = require 'fs-plus'
 {File} = require 'pathwatcher'
@@ -56,7 +57,7 @@ class CfdgImageEditor
   # Returns a {String}.
   getUri: ->
     filepath = @file.getPath()
-    @uriForFile(@cfdgFileName, filepath)
+    utils.uriForFile(@cfdgFileName, filepath)
 
   # Retrieves the absolute path to the image.
   #
@@ -72,6 +73,3 @@ class CfdgImageEditor
     other instanceof CfdgImageEditor and @getUri() is other.getUri()
 
   getCfdgFileName: -> @cfdgFileName
-
-  uriForFile: (cfdgFileName, filePath) ->
-    "context-free-render://filepath#{filePath}?cfdg=#{cfdgFileName}"

@@ -1,3 +1,4 @@
+utils = require './utils'
 CfdgImageEditor = require './cfdg-image-editor'
 {CompositeDisposable} = require 'atom'
 {BufferedProcess} = require 'atom'
@@ -7,8 +8,7 @@ fs = require 'fs-plus'
 
 platform = process.platform
 console.log 'platform: ' + platform
-packagePath = atom.packages.resolvePackagePath 'language-context-free'
-console.log 'packagePath: ' + packagePath
+tmpPngFiles = []
 
 module.exports = ContextFreeRender =
   config:
@@ -29,7 +29,6 @@ module.exports = ContextFreeRender =
       description: '(Optional) duration in msec to timeout rendering.'
 
   subscriptions: null
-  tmpPngFiles: []
 
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
@@ -40,7 +39,7 @@ module.exports = ContextFreeRender =
     atom.workspace.addOpener @openEditor
 
   deactivate: ->
-    @rmTmpPngFile()
+    @rmTmpPngFiles()
 
   render: ->
     unless platform is 'darwin' or platform is 'linux'
@@ -64,9 +63,6 @@ module.exports = ContextFreeRender =
     console.log 'extName: ' + extName
     return unless extName?
     return unless extName is '.cfdg'
-
-    packagePath = atom.packages.resolvePackagePath 'language-context-free'
-    console.log 'packagePath: ' + packagePath
 
     cwd = process.cwd
     env = process.env
@@ -104,7 +100,7 @@ module.exports = ContextFreeRender =
           message: "#{command} exited with #{code}"
           buttons: ["OK"]
         return
-      @tmpPngFiles.push outFilePath
+      tmpPngFiles.push outFilePath
       @sendOpenCommand cfdgFileName, outFilePath
 
     timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
@@ -116,7 +112,7 @@ module.exports = ContextFreeRender =
     return unless timeout?
     return if timeout is 0
 
-    callback = () ->
+    callback = ->
       console.log "done: #{done}"
       unless done
         cfdgProcess.kill()
@@ -126,7 +122,7 @@ module.exports = ContextFreeRender =
     setTimeout callback, timeout
 
   sendOpenCommand: (cfdgFileName, outFilePath) ->
-    uri = @uriForFile cfdgFileName, outFilePath
+    uri = utils.uriForFile cfdgFileName, outFilePath
     console.log 'uri: ' + uri
     previousActivePane = atom.workspace.getActivePane()
     atom.workspace.open(uri, split: 'right', searchAllPanes: true).done (openedEditor) ->
@@ -157,19 +153,7 @@ module.exports = ContextFreeRender =
 
     new CfdgImageEditor cfdgFileName, pathname
 
-  uriForFile: (cfdgFileName, filePath) ->
-    "context-free-render://filepath#{filePath}?cfdg=#{cfdgFileName}"
-
-  rmTmpPngFile: ->
-    for tmpPngFile in @tmpPngFiles
+  rmTmpPngFiles: ->
+    for tmpPngFile in tmpPngFiles
       console.log 'tmpPngFile: ' + tmpPngFile
-      @rmFile tmpPngFile
-
-  rmFile: (filePath) ->
-    return unless filePath?
-    return unless fs.existsSync filePath
-    fs.unlinkSync filePath
-
-  dumpObj: (obj) ->
-    for key, value of obj
-      console.log "key: " + key + ", value: " + value
+      utils.rmFile tmpPngFile
