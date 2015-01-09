@@ -29,13 +29,3 @@ a copy of this software and associated documentation files (the
   software is granted. This software is provided "as is" without
   express or implied warranty, and with no claim as to its
   suitability for any purpose.
-
-  --------------------------------------------------------------------
-
-  This package contains cfdg command-line version distributed under GPLv2.
-  See `cfdg-LICENSE.txt` in the `assets` directory for more details.
-
-  --------------------------------------------------------------------
-
-  This package contains libpng distributed under the libpng license.
-  See `libpng-1.6.16-LICENSE.txt` in the `assets` directory for more details.
