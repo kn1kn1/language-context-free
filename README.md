@@ -10,7 +10,9 @@ pull request to add snippets, make grammar tweaks, etc.
 
 ## Rendering (OSX and Linux)
 
-If you have cfdg (Context Free Command-Line Version) and set "cfdg Command Path" setting, you can render .cfdg file from the shortcut `ctrl-shift-r` or clicking `Packages > Context Free > Render` in the menu.
+If you have cfdg (Context Free Command-Line Version), you can render Context Free files.
+
+Please set "cfdg Command Path" setting and render *.cfdg files via the shortcut `ctrl-shift-r` or the menu `Packages > Context Free > Render`.
 
 ![Language Context Free - Rendering Screenshot](https://raw.githubusercontent.com/kn1kn1/language-context-free/master/rendering.png)
 
