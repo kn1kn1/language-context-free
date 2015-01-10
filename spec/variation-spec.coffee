@@ -29,6 +29,12 @@ describe "Variation", ->
       expect(added).toBe('B')
       expect(variation.value).toBe('B')
 
+    it "increase its alphabetic value by one", ->
+      variation = new Variation 'AA'
+      added = variation.add1()
+      expect(added).toBe('AB')
+      expect(variation.value).toBe('AB')
+
     it "increase the length if the former value is 'Z'", ->
       variation = new Variation 'Z'
       added = variation.add1()

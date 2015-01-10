@@ -24,13 +24,13 @@ class Variation
   add1: ->
     codes = []
     for v, i in @value
-      codes[i] = v.charCodeAt(i)
+      codes[i] = @value.charCodeAt(i)
 
-    carry = 0
+    carry = 1
     valueLen = @value.length
     for i in [valueLen - 1..0]
       charCode = codes[i]
-      charCode = charCode + carry + 1
+      charCode = charCode + carry
       if charCode > 90  # > 'Z'
         codes[i] = 65 # set 'A'
         carry = 1
@@ -42,6 +42,7 @@ class Variation
     return @value = 'A' if (carry is 1) and (valueLen is 6)
 
     newValue = if carry is 1 then 'A' else ''
+    utils.dumpObj codes
     for code in codes
       newValue = newValue + String.fromCharCode(code)
     @value = newValue
