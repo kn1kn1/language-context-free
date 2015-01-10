@@ -1,0 +1,13 @@
+startshape main
+
+background {sat .3 h 200}
+
+rule main {
+  CLOVER {b .2}
+  main {z -1 s 0.8 x 4 r 100}
+}
+
+rule CLOVER {
+  CIRCLE {}
+  CLOVER {x 1.0 s 0.99 r 90 b 0.01}
+}

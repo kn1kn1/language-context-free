@@ -6,9 +6,6 @@ url = require 'url'
 path = require 'path'
 fs = require 'fs-plus'
 
-platform = process.platform
-console.log 'platform: ' + platform
-tmpPngFiles = []
 
 module.exports = ContextFreeRender =
   config:
@@ -29,8 +26,13 @@ module.exports = ContextFreeRender =
       description: '(Optional) duration in msec to timeout rendering.'
 
   subscriptions: null
+  platform: null
+  tmpPngFiles: []
 
   activate: (state) ->
+    @platform = process.platform
+    console.log 'platform: ' + @platform
+
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
     # Register command that toggles this view
@@ -42,13 +44,15 @@ module.exports = ContextFreeRender =
     @rmTmpPngFiles()
 
   render: ->
-    unless platform is 'darwin' or platform is 'linux'
+    console.log 'render'
+    unless @platform is 'darwin' or @platform is 'linux'
       atom.confirm
-        message: "render not supported in #{platform}."
+        message: "render not supported in #{@platform}."
         buttons: ["OK"]
       return
 
     editor = atom.workspace.getActiveTextEditor()
+    console.log 'editor: ' + editor
     return unless editor?
 
     filePath = editor.getPath()
@@ -80,7 +84,7 @@ module.exports = ContextFreeRender =
     ldLibraryPath = atom.config.get 'language-context-free.ldLibraryPath'
     console.log "ldLibraryPath: #{ldLibraryPath}"
     if ldLibraryPath
-      ldLibraryPathKey = if platform is 'darwin' then 'DYLD_LIBRARY_PATH' else 'LD_LIBRARY_PATH'
+      ldLibraryPathKey = if @platform is 'darwin' then 'DYLD_LIBRARY_PATH' else 'LD_LIBRARY_PATH'
       env[ldLibraryPathKey] = ldLibraryPath
 
     outFilePath = '/tmp/atom-' + cfdgFileName + ".png"
@@ -100,7 +104,7 @@ module.exports = ContextFreeRender =
           message: "#{command} exited with #{code}"
           buttons: ["OK"]
         return
-      tmpPngFiles.push outFilePath
+      @tmpPngFiles.push outFilePath
       @sendOpenCommand cfdgFileName, outFilePath
 
     timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
@@ -154,6 +158,6 @@ module.exports = ContextFreeRender =
     new CfdgImageEditor cfdgFileName, pathname
 
   rmTmpPngFiles: ->
-    for tmpPngFile in tmpPngFiles
+    for tmpPngFile in @tmpPngFiles
       console.log 'tmpPngFile: ' + tmpPngFile
       utils.rmFile tmpPngFile
