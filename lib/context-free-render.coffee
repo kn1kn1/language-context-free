@@ -81,6 +81,13 @@ module.exports = ContextFreeRender =
         buttons: ["OK"]
       return
 
+    unless fs.existsSync command
+      commandName = path.basename command
+      atom.confirm
+        message: "#{command} not found. Make sure `#{commandName}` is installed and on your PATH"
+        buttons: ["OK"]
+      return
+
     ldLibraryPath = atom.config.get 'language-context-free.ldLibraryPath'
     console.log "ldLibraryPath: #{ldLibraryPath}"
     if ldLibraryPath

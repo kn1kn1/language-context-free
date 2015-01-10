@@ -52,6 +52,33 @@ describe "ContextFreeRender", ->
           buttons: ["OK"]
         expect(atom.confirm).toHaveBeenCalledWith(confirmArg)
 
+  describe "when @render if 'cfdg Command Path' is invalid", ->
+    it "alert with atom.confirm dialog", ->
+      console.log "mainModule: #{mainModule}"
+      expect(mainModule).toBeDefined()
+
+      runs ->
+        atom.workspace.open(path.join(__dirname, 'fixtures', 'Clovers.cfdg'))
+
+      waitsFor ->
+        atom.workspace.getActivePaneItem() instanceof TextEditor
+
+      runs ->
+        expect(atom.workspace.getActivePaneItem().getTitle()).toBe 'Clovers.cfdg'
+
+        # atom.config.set "language-context-free.cfdgCommandPath", '/usr/local/bin/cfdg'
+        invalidPath = 'cfdg'
+        atom.config.set "language-context-free.cfdgCommandPath", invalidPath
+
+        spyOn atom, 'confirm'
+        atom.commands.dispatch workspaceElement, 'context-free:render'
+
+        fileName = path.basename invalidPath
+        confirmArg =
+          message: "#{invalidPath} not found. Make sure `#{fileName}` is installed and on your PATH"
+          buttons: ["OK"]
+        expect(atom.confirm).toHaveBeenCalledWith(confirmArg)
+
   describe "when @render unless platform is either 'darwin' or 'linux'", ->
     it "alert with atom.confirm dialog", ->
       console.log "mainModule: #{mainModule}"
@@ -75,21 +102,3 @@ describe "ContextFreeRender", ->
           message: "render not supported in #{platformWin32}."
           buttons: ["OK"]
         expect(atom.confirm).toHaveBeenCalledWith(confirmArg)
-
-  # describe "when @render if 'cfdg Command Path' is invalid", ->
-  #   it "alert with atom.confirm dialog", ->
-  #     console.log "mainModule: #{mainModule}"
-  #     expect(mainModule).toBeDefined()
-  #
-  #     runs ->
-  #       atom.workspace.open(path.join(__dirname, 'fixtures', 'Clovers.cfdg'))
-  #
-  #     waitsFor ->
-  #       atom.workspace.getActivePaneItem() instanceof TextEditor
-  #
-  #     runs ->
-  #       expect(atom.workspace.getActivePaneItem().getTitle()).toBe 'Clovers.cfdg'
-  #
-  #       # atom.config.set "language-context-free.cfdgCommandPath", '/usr/local/bin/cfdg'
-  #       atom.config.set "language-context-free.cfdgCommandPath", 'cfdg'
-  #       atom.commands.dispatch workspaceElement, 'context-free:render'
