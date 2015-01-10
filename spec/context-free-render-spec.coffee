@@ -1,4 +1,6 @@
+CfdgImageEditor = require '../lib/cfdg-image-editor'
 ContextFreeRender = require '../lib/context-free-render'
+utils = require '../lib/utils'
 path = require 'path'
 {TextEditor} = require 'atom'
 
@@ -21,7 +23,6 @@ describe "ContextFreeRender", ->
 
   describe "when the language-context-free package is activated", ->
     it "can trigger the context-free:render command", ->
-      console.log "mainModule: #{mainModule}"
       expect(mainModule).toBeDefined()
 
       spyOn(mainModule, 'render')
@@ -31,7 +32,6 @@ describe "ContextFreeRender", ->
 
   describe "when @render unless 'cfdg Command Path' is set", ->
     it "alert with atom.confirm dialog", ->
-      console.log "mainModule: #{mainModule}"
       expect(mainModule).toBeDefined()
 
       runs ->
@@ -54,7 +54,6 @@ describe "ContextFreeRender", ->
 
   describe "when @render if 'cfdg Command Path' is invalid", ->
     it "alert with atom.confirm dialog", ->
-      console.log "mainModule: #{mainModule}"
       expect(mainModule).toBeDefined()
 
       runs ->
@@ -81,7 +80,6 @@ describe "ContextFreeRender", ->
 
   describe "when @render unless platform is either 'darwin' or 'linux'", ->
     it "alert with atom.confirm dialog", ->
-      console.log "mainModule: #{mainModule}"
       expect(mainModule).toBeDefined()
       platformWin32 = 'win32'
       mainModule.platform = platformWin32 # change platform to 'win32'
@@ -102,3 +100,44 @@ describe "ContextFreeRender", ->
           message: "render not supported in #{platformWin32}."
           buttons: ["OK"]
         expect(atom.confirm).toHaveBeenCalledWith(confirmArg)
+
+  describe "when @sendOpenCommand if render view has not been created for the file", ->
+    it "splits the current pane to the right with a view for the file", ->
+      expect(mainModule).toBeDefined()
+      cfdgFile = 'Clovers.cfdg'
+      pngFile = 'Clovers.cfdg.png'
+
+      runs ->
+        atom.workspace.open(path.join(__dirname, 'fixtures', cfdgFile))
+
+      waitsFor ->
+        atom.workspace.getActivePaneItem() instanceof TextEditor
+
+      runs ->
+        expect(atom.workspace.getActivePaneItem().getTitle()).toBe cfdgFile
+        mainModule.sendOpenCommand cfdgFile, path.join(__dirname, 'fixtures', pngFile)
+
+      waitsFor ->
+        atom.workspace.getPanes().length > 1
+
+      waitsFor ->
+        atom.workspace.getPanes()[1].getItems().length > 0
+
+      runs ->
+        expect(atom.workspace.getPanes()).toHaveLength 2
+        [leftPane, rightPane] = atom.workspace.getPanes()
+
+        expect(leftPane.isActive()).toBe true
+        expect(leftPane.getItems()).toHaveLength 1
+        expect(leftPane.getActiveItem().getTitle()).toBe cfdgFile
+
+        expect(rightPane.isActive()).toBe false
+        expect(rightPane.getItems()).toHaveLength 1
+
+        editor = rightPane.getActiveItem()
+        expect(editor).toBeInstanceOf(CfdgImageEditor)
+        expect(editor.getTitle()).toBe "#{cfdgFile} Render"
+        expPath = path.join(__dirname, 'fixtures', pngFile)
+        expect(editor.getPath()).toBe expPath
+        expect(editor.getCfdgFileName()).toBe cfdgFile
+        expect(editor.getUri()).toBe "context-free-render://filepath#{expPath}?cfdg=#{cfdgFile}"
