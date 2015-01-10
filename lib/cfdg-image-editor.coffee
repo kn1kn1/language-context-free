@@ -1,4 +1,5 @@
 utils = require './utils'
+Variation = require '../lib/variation'
 path = require 'path'
 fs = require 'fs-plus'
 {File} = require 'pathwatcher'
@@ -73,3 +74,5 @@ class CfdgImageEditor
     other instanceof CfdgImageEditor and @getUri() is other.getUri()
 
   getCfdgFileName: -> @cfdgFileName
+
+  getVariation: -> Variation.getVariation(@getPath())

@@ -1,0 +1,16 @@
+startshape main
+size {s 1 1}
+
+rule main {
+ 20 * {h 18} aa {a -1 b .7 sat .3}
+}
+
+rule aa {
+ CIRCLE {}
+ aa {a .00001 r 12 x .1 s .999}
+}
+
+rule aa {
+ CIRCLE {}
+ aa {a .00001 r 11 x .2 s .999}
+}

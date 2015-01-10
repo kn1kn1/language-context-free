@@ -10,6 +10,8 @@ module.exports =
 class CfdgImageEditorView extends ScrollView
   @content: ->
     @div class: 'cfdg-image-view', tabindex: -1, =>
+      @div class: 'cfdg-image-variation', =>
+        @div outlet: 'variation'
       @div class: 'cfdg-image-container', =>
         @div class: 'cfdg-image-container-cell', =>
           @img outlet: 'image'
@@ -50,6 +52,8 @@ class CfdgImageEditorView extends ScrollView
 
   updateImageUri: ->
     @image.attr('src', "#{@editor.getPath()}?time=#{Date.now()}")
+    variationStr = @editor.getVariation()
+    @variation.text "variation: #{variationStr}"
 
   # Retrieves this view's pane.
   #

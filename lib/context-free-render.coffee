@@ -1,11 +1,11 @@
 utils = require './utils'
+Variation = require '../lib/variation'
 CfdgImageEditor = require './cfdg-image-editor'
 {CompositeDisposable} = require 'atom'
 {BufferedProcess} = require 'atom'
 url = require 'url'
 path = require 'path'
 fs = require 'fs-plus'
-
 
 module.exports = ContextFreeRender =
   config:
@@ -28,10 +28,13 @@ module.exports = ContextFreeRender =
   subscriptions: null
   platform: null
   tmpPngFiles: []
+  variation: null
 
   activate: (state) ->
     @platform = process.platform
     console.log 'platform: ' + @platform
+
+    @variation = new Variation 'A'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -68,11 +71,13 @@ module.exports = ContextFreeRender =
     return unless extName?
     return unless extName is '.cfdg'
 
+    @variation.add1()
+
     cwd = process.cwd
     env = process.env
-    @execCfdg fileName, filePath, cwd, env
+    @execCfdg fileName, filePath, @variation.value, cwd, env
 
-  execCfdg: (cfdgFileName, cfdgFilePath, cwd, env) ->
+  execCfdg: (cfdgFileName, cfdgFilePath, variation, cwd, env) ->
     command = atom.config.get 'language-context-free.cfdgCommandPath'
     console.log "command: #{command}"
     if !command
@@ -95,7 +100,7 @@ module.exports = ContextFreeRender =
       env[ldLibraryPathKey] = ldLibraryPath
 
     outFilePath = '/tmp/atom-' + cfdgFileName + ".png"
-    args = ['-s', '400', cfdgFilePath, outFilePath]
+    args = ['-s', '400', '-v', variation, cfdgFilePath, outFilePath]
     options =
       cwd: cwd
       env: env
@@ -111,6 +116,8 @@ module.exports = ContextFreeRender =
           message: "#{command} exited with #{code}"
           buttons: ["OK"]
         return
+
+      Variation.setVariation(outFilePath, variation)
       @tmpPngFiles.push outFilePath
       @sendOpenCommand cfdgFileName, outFilePath
 

@@ -1,12 +1,17 @@
+utils = require "./utils"
+
 module.exports =
 class Variation
-  @value = null
+  map = {}
+
+  @setVariation: (filePath, variation) ->
+    map[filePath] = variation
+
+  @getVariation: (filePath) ->
+    map[filePath]
 
   constructor: (str) ->
     @value = str
-
-  @parse: (str) ->
-    return null unless isValid str
 
   @isAlphabetic: (str) ->
     return /^[a-zA-Z]+$/.test(str)
