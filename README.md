@@ -1,4 +1,4 @@
-# Context Free support in Atom
+# Context Free support in Atom [![Build Status](https://travis-ci.org/kn1kn1/language-context-free.svg?branch=master)](https://travis-ci.org/kn1kn1/language-context-free)
 
 Adds syntax highlighting and snippets to Context Free files in Atom.
 
