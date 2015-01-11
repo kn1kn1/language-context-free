@@ -97,24 +97,4 @@ class CfdgImageEditorView extends ScrollView
 
   saveAs: ->
     return if @loading
-
-    srcFilePath = @editor.getPath()
-    console.log('srcFilePath: ' + srcFilePath)
-    return unless srcFilePath?
-
-    projectPath = atom.project.getPath()
-    console.log('projectPath: ' + projectPath)
-    cfdgFileName = @editor.getCfdgFileName()
-    unless cfdgFileName?
-      cfdgFileName = 'untitled'
-    saveFilePath = path.join(projectPath, cfdgFileName + '.png')
-    console.log('saveFilePath: ' + saveFilePath)
-
-    if dstFilePath = atom.showSaveDialogSync(saveFilePath)
-      utils.copyFile srcFilePath, dstFilePath, (err) ->
-        unless err?
-          atom.workspace.open(dstFilePath)
-        else
-          atom.confirm
-            message: 'error: ' + err
-            buttons: ["Ok"]
+    @editor.saveAs()

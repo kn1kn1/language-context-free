@@ -76,3 +76,25 @@ class CfdgImageEditor
   getCfdgFileName: -> @cfdgFileName
 
   getVariation: -> Variation.getVariation(@getPath())
+
+  saveAs: ->
+    srcFilePath = @getPath()
+    console.log 'srcFilePath: ' + srcFilePath
+    return unless srcFilePath?
+
+    projectPath = atom.project.getPath()
+    console.log 'projectPath: ' + projectPath
+    cfdgFileName = @getCfdgFileName()
+    unless cfdgFileName?
+      cfdgFileName = 'untitled'
+    saveFilePath = path.join projectPath, "#{cfdgFileName}.png"
+    console.log 'saveFilePath: ' + saveFilePath
+
+    if dstFilePath = atom.showSaveDialogSync saveFilePath
+      utils.copyFile srcFilePath, dstFilePath, (err) ->
+        unless err?
+          atom.workspace.open dstFilePath
+        else
+          atom.confirm
+            message: 'error: ' + err
+            buttons: ["Ok"]
