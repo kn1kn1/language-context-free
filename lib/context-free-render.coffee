@@ -73,7 +73,7 @@ module.exports = ContextFreeRender =
     atom.workspace.addOpener @openEditor
 
   deactivate: ->
-    temp.cleanupSync()
+    # temp.cleanupSync()
 
   render: ->
     console.log 'render'
