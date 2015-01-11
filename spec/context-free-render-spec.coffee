@@ -66,7 +66,7 @@ describe "ContextFreeRender", ->
         expect(atom.workspace.getActivePaneItem().getTitle()).toBe 'Clovers.cfdg'
 
         # atom.config.set "language-context-free.cfdgCommandPath", '/usr/local/bin/cfdg'
-        invalidPath = 'cfdg'
+        invalidPath = 'CFDGINVALIDPATH'
         atom.config.set "language-context-free.cfdgCommandPath", invalidPath
 
         spyOn atom, 'confirm'
