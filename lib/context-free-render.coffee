@@ -6,6 +6,7 @@ CfdgImageEditor = require './cfdg-image-editor'
 url = require 'url'
 path = require 'path'
 fs = require 'fs-plus'
+temp = require 'temp'
 
 module.exports = ContextFreeRender =
   config:
@@ -31,13 +32,17 @@ module.exports = ContextFreeRender =
 
   subscriptions: null
   platform: null
-  tmpPngFiles: []
+  tempDirPah: null
 
   variation: null
   addVariation: false
   selfChange: false
 
   activate: (state) ->
+    temp.track()
+    @tempDirPah = temp.mkdirSync 'atom-cfdg'
+    console.log 'tempDirPah: ' + @tempDirPah
+
     @platform = process.platform
     console.log 'platform: ' + @platform
 
@@ -68,7 +73,7 @@ module.exports = ContextFreeRender =
     atom.workspace.addOpener @openEditor
 
   deactivate: ->
-    @rmTmpPngFiles()
+    temp.cleanupSync()
 
   render: ->
     console.log 'render'
@@ -129,7 +134,7 @@ module.exports = ContextFreeRender =
       ldLibraryPathKey = if @platform is 'darwin' then 'DYLD_LIBRARY_PATH' else 'LD_LIBRARY_PATH'
       env[ldLibraryPathKey] = ldLibraryPath
 
-    outFilePath = '/tmp/atom-' + cfdgFileName + ".png"
+    outFilePath = path.join @tempDirPah, "#{cfdgFileName}.png"
     args = ['-s', '400', '-v', variation, cfdgFilePath, outFilePath]
     options =
       cwd: cwd
@@ -148,7 +153,6 @@ module.exports = ContextFreeRender =
         return
 
       Variation.setVariation(outFilePath, variation)
-      @tmpPngFiles.push outFilePath
       @sendOpenCommand cfdgFileName, outFilePath
 
     timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
@@ -200,8 +204,3 @@ module.exports = ContextFreeRender =
     console.log 'pathname: ' + pathname
 
     new CfdgImageEditor cfdgFileName, pathname
-
-  rmTmpPngFiles: ->
-    for tmpPngFile in @tmpPngFiles
-      console.log 'tmpPngFile: ' + tmpPngFile
-      utils.rmFile tmpPngFile
