@@ -11,7 +11,7 @@ class Variation
     map[filePath]
 
   constructor: (str) ->
-    @value = str
+    @value = str.toUpperCase()
 
   @isAlphabetic: (str) ->
     return /^[a-zA-Z]+$/.test(str)

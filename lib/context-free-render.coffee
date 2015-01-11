@@ -24,17 +24,41 @@ module.exports = ContextFreeRender =
       default: 3000
       minimum: 0
       description: '(Optional) duration in msec to timeout rendering.'
+    variation:
+      type: 'string'
+      default: ''
+      description: "variation code ('A' - 'ZZZZZZ')."
 
   subscriptions: null
   platform: null
   tmpPngFiles: []
+
   variation: null
+  addVariation: false
+  selfChange: false
 
   activate: (state) ->
     @platform = process.platform
     console.log 'platform: ' + @platform
 
-    @variation = new Variation 'A'
+    variationStr = atom.config.get 'language-context-free.variation'
+    unless Variation.isValid variationStr
+      variationStr = 'A'
+      atom.config.set 'language-context-free.variation', variationStr
+    @variation = new Variation variationStr
+    @addVariation = false
+
+    atom.config.onDidChange 'language-context-free.variation', (event) =>
+      unless Variation.isValid event.newValue
+        atom.config.set 'language-context-free.variation', event.oldValue
+        return
+      @variation = new Variation event.newValue
+      if @selfChange
+        # changed by this process
+        @selfChange = false
+      else
+        # changed from Settings panel
+        @addVariation = false
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -48,6 +72,7 @@ module.exports = ContextFreeRender =
 
   render: ->
     console.log 'render'
+
     unless @platform is 'darwin' or @platform is 'linux'
       atom.confirm
         message: "render not supported in #{@platform}."
@@ -71,7 +96,12 @@ module.exports = ContextFreeRender =
     return unless extName?
     return unless extName is '.cfdg'
 
-    @variation.add1()
+    if @addVariation
+      @variation.add1()
+      @selfChange = true
+      atom.config.set 'language-context-free.variation', @variation.value
+    else
+      @addVariation = true
 
     cwd = process.cwd
     env = process.env
