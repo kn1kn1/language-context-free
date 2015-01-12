@@ -7,6 +7,7 @@ url = require 'url'
 path = require 'path'
 fs = require 'fs-plus'
 temp = require 'temp'
+os = require 'os'
 
 module.exports = ContextFreeRender =
   config:
