@@ -30,6 +30,10 @@ describe "ContextFreeRender", ->
 
       expect(mainModule.render).toHaveBeenCalled()
 
+    it "can deactivate gracefully", ->
+      expect(mainModule).toBeDefined()
+      mainModule.deactivate()
+
   describe "when @render unless 'cfdg Command Path' is set", ->
     it "alert with atom.confirm dialog", ->
       expect(mainModule).toBeDefined()
