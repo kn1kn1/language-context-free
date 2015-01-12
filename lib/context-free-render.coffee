@@ -40,11 +40,17 @@ module.exports = ContextFreeRender =
 
   activate: (state) ->
     temp.track()
-    @tempDirPah = temp.mkdirSync 'atom-cfdg'
-    console.log 'tempDirPah: ' + @tempDirPah
 
     @platform = process.platform
     console.log 'platform: ' + @platform
+
+    # WORKAROUND for linux tmp dir
+    if @platform is 'linux'
+      temp.dir = path.resolve os.tmpdir()
+
+    console.log 'temp.dir: ' + temp.dir
+    @tempDirPah = temp.mkdirSync 'atom-cfdg-'
+    console.log 'tempDirPah: ' + @tempDirPah
 
     variationStr = atom.config.get 'language-context-free.variation'
     unless Variation.isValid variationStr
