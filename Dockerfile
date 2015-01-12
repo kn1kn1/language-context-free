@@ -10,7 +10,6 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get dist-upgrade -y
 
 # Install Required Packages For Atom
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y lxde-core lxterminal tightvncserver
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y xvfb build-essential git gconf2 gconf-service libgtk2.0-0 libnotify4 libxtst6 libnss3 python gvfs-bin xdg-utils wget
 
 # Download And Install Atom
@@ -24,6 +23,4 @@ RUN apm --version
 RUN cd $HOME && rm -rf node_modules && apm install
 
 # Start the Xvfb server with a display 1 and a virtual screen(monitor) 0.
-# Run test
-# RUN Xvfb :1 -screen 0 1024x768x16 &
 RUN start-stop-daemon --start --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :1 -screen 0 1024x768x16 -ac +extension GLX +extension RANDR +render -noreset && sleep 5 && cd $HOME && export DISPLAY=:1 && apm test
