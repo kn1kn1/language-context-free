@@ -23,11 +23,11 @@ RUN rm -rf atom-amd64.deb
 RUN apm --version
 
 # Install Package Dependencies
-WORKDIR $HOME
-RUN apm install
+RUN cd $HOME && apm install
 
 # Start the Xvfb server with a display 99 and a virtual screen(monitor) 0.
 RUN start-stop-daemon --start --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1024x768x24 -ac +extension GLX +extension RANDR +render -noreset && \
     sleep 3 && \
     export DISPLAY=:99 && \
+    cd $HOME && \
     apm test
