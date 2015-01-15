@@ -1,4 +1,7 @@
 # Atom Docker Image For Package Testing
+
+# based from the container published at docker hub
+# https://registry.hub.docker.com/u/kn1kn1/atom-apm-test/
 FROM kn1kn1/atom-apm-test:latest
 MAINTAINER Kenichi Kanai <kn1kn1@users.noreply.github.com>
 
