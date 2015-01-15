@@ -57,6 +57,12 @@ class CfdgImageEditor
   #
   # Returns a {String}.
   getUri: ->
+    @getURI()
+
+  # Retrieves the URI of the image.
+  #
+  # Returns a {String}.
+  getURI: ->
     filepath = @file.getPath()
     utils.uriForFile(@cfdgFileName, filepath)
 
@@ -71,7 +77,7 @@ class CfdgImageEditor
   #
   # Returns a {Boolean}.
   isEqual: (other) ->
-    other instanceof CfdgImageEditor and @getUri() is other.getUri()
+    other instanceof CfdgImageEditor and @getURI() is other.getURI()
 
   getCfdgFileName: -> @cfdgFileName
 

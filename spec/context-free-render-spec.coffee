@@ -144,4 +144,4 @@ describe "ContextFreeRender", ->
         expPath = path.join(__dirname, 'fixtures', pngFile)
         expect(editor.getPath()).toBe expPath
         expect(editor.getCfdgFileName()).toBe cfdgFile
-        expect(editor.getUri()).toBe "context-free-render://filepath#{expPath}?cfdg=#{cfdgFile}"
+        expect(editor.getURI()).toBe "context-free-render://filepath#{expPath}?cfdg=#{cfdgFile}"
