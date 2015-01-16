@@ -1,2 +1,2 @@
-'.workspace, .workspace .editor':
+'atom-text-editor':
   'ctrl-R': 'context-free:render'
