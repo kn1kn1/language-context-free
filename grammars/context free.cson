@@ -3,7 +3,10 @@
   'context free'
 ]
 'name': 'Context Free'
+
 'patterns': [
+  # converted from Context Free TextMate bundle
+  # https://github.com/textmate/context-free.tmbundle
   {
     'include': '#comment'
   }
@@ -19,8 +22,92 @@
   {
     'include': '#rule-directive'
   }
+
+  # converted from Context Free 3 Bundle for TextMate 1.x
+  # https://github.com/Royaljerry/cfdg-3-bundle-for-textmate-1-x
+  {
+    include: "#declaration-shape"
+  }
+  {
+    include: "#declaration-path"
+  }
+  {
+    include: "#declaration-expr"
+  }
+  {
+    include: "#import"
+  }
+  {
+    include: "#startshape"
+  }
+  {
+    include: "#comments"
+  }
+  {
+    include: "#fields"
+  }
+  {
+    include: "#chapter-main"
+  }
+  {
+    include: "#chapter-sub"
+  }
+  {
+    include: "#numbers"
+  }
+  {
+    include: "#operators"
+  }
+  {
+    include: "#controls"
+  }
+  {
+    include: "#types"
+  }
+  {
+    include: "#directives"
+  }
+  {
+    include: "#productions"
+  }
+  {
+    include: "#terminals"
+  }
+  {
+    include: "#pathoperations"
+  }
+  {
+    include: "#cf"
+  }
+  {
+    include: "#expressions"
+  }
+  {
+    include: "#adjustments"
+  }
+  {
+    include: "#loop"
+  }
+  {
+    include: "#replacement"
+  }
+  {
+    include: "#variable"
+  }
+  {
+    include: "#section-argument"
+  }
+  {
+    include: "#section-adjustment"
+  }
+  {
+    include: "#section-compound"
+  }
 ]
+
 'repository':
+  # converted from Context Free TextMate bundle
+  # https://github.com/textmate/context-free.tmbundle
   'background-directive':
     'begin': '\\b(background)'
     'beginCaptures':
@@ -280,4 +367,458 @@
       '2':
         'name': 'entity.name.function.rule.cfdg'
     'match': '\\b(startshape)\\s++([a-zA-Z_][a-zA-Z_\\.\\d]*+)'
+
+  # converted from Context Free 3 Bundle for TextMate 1.x
+  # https://github.com/Royaljerry/cfdg-3-bundle-for-textmate-1-x
+  "adj-color":
+    match: "\\||\\b(h(ue)?|sat(uration)?|b(rightness)?|a(lpha)?)\\b"
+    name: "entity.other.attribute-name.adjustment.color.cfdg"
+  "adj-geometry":
+    match: "\\b(x|y|z|s(ize)?|r(ot(ate)?)?|f(lip)?|skew|trans(form)?)\\b"
+    name: "entity.other.attribute-name.adjustment.geometry.cfdg"
+  "adj-time":
+    match: "\\||\\b((time)scale?)\\b"
+    name: "entity.other.attribute-name.adjustment.time.cfdg"
+  adjustments:
+    name: "entity.other.attribute-name.adjustment.cfdg"
+    patterns: [
+      {
+        include: "#adj-geometry"
+      }
+      {
+        include: "#adj-color"
+      }
+      {
+        include: "#adj-time"
+      }
+    ]
+  cf:
+    name: "entity.name.section.cf.cfdg"
+    patterns: [
+      {
+        include: "#cf-configuration"
+      }
+      {
+        include: "#cf-symmetry"
+      }
+      {
+        include: "#cf-flag"
+      }
+    ]
+  "cf-configuration":
+    captures:
+      "1":
+        name: "variable.parameter.cf.prefix.cfdg"
+      "2":
+        name: "variable.parameter.cf.name.configuration.cfdg"
+    match: "\\b(CF::)(AllowOverlap|Alpha|Background|BorderDynamic|BorderFixed|Color|ColorDepth|Frame|FrameTime|MaxNatural|MinimumSize|Size|Symmetry|Tile|Time)\\b"
+    name: "entity.name.section.cf.configuration.cfdg"
+  "cf-flag":
+    captures:
+      "1":
+        name: "variable.parameter.cf.prefix.cfdg"
+      "2":
+        name: "variable.parameter.cf.name.flag.cfdg"
+    match: "\\b(CF::)(Align|ArcCW|ArcLarge|BevelJoin|ButtCap|Continuous|EvenOdd|IsoWidth|MiterJoin|RoundCap|RoundJoin|SquareCap)\\b"
+    name: "entity.name.section.cf.flag.cfdg"
+  "cf-symmetry":
+    captures:
+      "1":
+        name: "variable.parameter.cf.prefix.cfdg"
+      "2":
+        name: "variable.parameter.cf.name.symmetry.cfdg"
+    match: "\\b(CF::)(Cyclic|Dihedral|cm|cmm|p3|p3m1|p31m|p6|p6m|pg|pmm|pgg|pmg|pm|p1m1|p2|p2mm|p2mg|p4|p4m|p4g|p11g|p11m)\\b"
+    name: "entity.name.section.cf.symmetry.cfdg"
+  "chapter-main":
+    captures:
+      "2":
+        name: "comment.other.chapter.main.name.cfdg"
+    match: "([ \\t]*\\*[ \\t]*#[ \\t]*)([^#\\n]*)( [ \\t]*#)"
+    name: "comment.other.chapter.main.cfdg"
+  "chapter-sub":
+    captures:
+      "2":
+        name: "comment.other.chapter.sub.name.cfdg"
+    match: "([ \\t]*\\*[ \\t]*---[ \\t]*)([^\\n]*)( [ \\t]*---)"
+    name: "comment.other.chapter.sub.cfdg"
+  comments:
+    patterns: [
+      {
+        begin: "(^[ \\t]+)?(?=#)"
+        beginCaptures:
+          "1":
+            name: "punctuation.whitespace.comment.leading.cfdg"
+        end: "(?!\\G)"
+        patterns: [
+          {
+            begin: "#"
+            beginCaptures:
+              "0":
+                name: "punctuation.definition.comment.cfdg"
+            end: "$"
+            name: "comment.line.number-sign.cfdg"
+            patterns: [
+              {
+                include: "#fields"
+              }
+            ]
+          }
+        ]
+      }
+      {
+        begin: "(^[ \\t]+)?(?=//)"
+        beginCaptures:
+          "1":
+            name: "punctuation.whitespace.comment.leading.cfdg"
+        end: "(?!\\G)"
+        patterns: [
+          {
+            begin: "//"
+            beginCaptures:
+              "0":
+                name: "punctuation.definition.comment.cfdg"
+            end: "$"
+            name: "comment.line.double-slash.cfdg"
+            patterns: [
+              {
+                include: "#fields"
+              }
+            ]
+          }
+        ]
+      }
+      {
+        begin: "(/\\*)"
+        beginCaptures:
+          "1":
+            name: "punctuation.definition.comment.begin.cfdg"
+        end: "(\\*/)"
+        endCaptures:
+          "1":
+            name: "punctuation.definition.comment.end.cfdg"
+        name: "comment.block.cfdg"
+        patterns: [
+          {
+            include: "#fields"
+          }
+          {
+            include: "#chapter-main"
+          }
+          {
+            include: "#chapter-sub"
+          }
+        ]
+      }
+    ]
+  controls:
+    match: "\\b(loop|if|switch|case|else|finally|transform)\\b"
+    name: "keyword.control.cfdg"
+  "declaration-expr":
+    captures:
+      "1":
+        name: "entity.name.section.declaration-expr.name.cfdg"
+      "2":
+        name: "entity.name.section.declaration-expr.params.cfdg"
+        patterns: [
+          {
+            include: "#types"
+          }
+          {
+            include: "#comments"
+          }
+          {
+            include: "#fields"
+          }
+        ]
+    match: "\\b([a-zA-Z_][a-zA-Z_\\-\\.\\d]*+)\\b\\s*\\(([^\\(\\)]*+)\\)\\s*="
+    name: "entity.name.section.declaration-expr.cfdg"
+  "declaration-path":
+    captures:
+      "1":
+        name: "entity.name.section.declaration-prod.type.cfdg"
+      "2":
+        name: "entity.name.section.declaration-prod.name.cfdg"
+    match: "\\b(path)\\b\\s++([a-zA-Z_][a-zA-Z_\\-\\.\\d]*)"
+    name: "entity.name.section.declaration-prod.path.cfdg"
+  "declaration-shape":
+    captures:
+      "1":
+        name: "entity.name.section.declaration-prod.type.cfdg"
+      "2":
+        name: "entity.name.section.declaration-prod.name.cfdg"
+    match: "\\b(shape)\\b\\s++([a-zA-Z_][a-zA-Z_\\-\\.\\d]*)"
+    name: "entity.name.section.declaration-prod.shape.cfdg"
+  directives:
+    match: "\\b(import|startshape)\\b"
+    name: "keyword.other.directive.cfdg"
+  "exp-animation":
+    match: "\\b(frame|ftime)\\b"
+    name: "entity.name.function.expression.animation.cfdg"
+  "exp-binary":
+    match: "\\b(bitand|bitleft|bitnot|bitor|bitright|bitxor)\\b"
+    name: "entity.name.function.expression.binary.cfdg"
+  "exp-constants":
+    match: "\\b(infinity)\\b"
+    name: "entity.name.function.expression.constants.cfdg"
+  "exp-exponential":
+    match: "\\b(exp|log|log10|sqrt)\\b"
+    name: "entity.name.function.expression.exponential.cfdg"
+  "exp-hyperbolic":
+    match: "\\b(acosh|asinh|atanh|cosh|sinh|tanh)\\b"
+    name: "entity.name.function.expression.hyperbolic.cfdg"
+  "exp-integer":
+    match: "\\b(div|divides|factorial|floor|isNatural|mod)\\b"
+    name: "entity.name.function.expression.integer.cfdg"
+  "exp-random":
+    match: "\\b(rand|randint|rand_static)\\b"
+    name: "entity.name.function.expression.random.cfdg"
+  "exp-trigonometry":
+    match: "\\b(acos|asin|atan|atan2|cos|sin|tan)\\b"
+    name: "entity.name.function.expression.trigonometry.cfdg"
+  "exp-value":
+    match: "\\b(abs|if|let|max|min|select|sg)\\b"
+    name: "entity.name.function.expression.value.cfdg"
+  expressions:
+    name: "entity.name.function.expression.cfdg"
+    patterns: [
+      {
+        include: "#exp-trigonometry"
+      }
+      {
+        include: "#exp-hyperbolic"
+      }
+      {
+        include: "#exp-exponential"
+      }
+      {
+        include: "#exp-integer"
+      }
+      {
+        include: "#exp-constants"
+      }
+      {
+        include: "#exp-binary"
+      }
+      {
+        include: "#exp-random"
+      }
+      {
+        include: "#exp-animation"
+      }
+      {
+        include: "#exp-value"
+      }
+    ]
+  fields:
+    captures:
+      "1":
+        name: "punctuation.definition.field.begin.cfdg"
+      "2":
+        name: "punctuation.definition.field.content.cfdg"
+      "3":
+        name: "punctuation.definition.field.end.cfdg"
+    match: "(«)([^«»\\n]*)(»)"
+    name: "markup.other.field.cfdg"
+  import:
+    captures:
+      "1":
+        name: "keyword.control.directive.import.cfdg"
+      "2":
+        name: "string.unquoted.file-name.cfdg"
+    match: "\\b(import)\\s++(\".*\"|\\S++)"
+    name: "entity.name.section.import.cfdg"
+  numbers:
+    captures:
+      "1":
+        name: "keyword.operator.sign.cfdg"
+      "4":
+        name: "punctuation.separator.integer-float.cfdg"
+    match: "\\b(\\+|\\-)?((\\d++)?(\\.))?\\d++\\b"
+    name: "constant.numeric.cfdg"
+  operators:
+    match: "(\\^|\\-|\\*|/|\\+|\\-\\-|\\.\\.|…|\\+\\-|±|<|>|<=|≤|>=|≥|\\=\\=|\\=|<>|≠|\\&\\&|\\|\\||\\^\\^)"
+    name: "keyword.operator.cfdg"
+  pathoperations:
+    match: "\\b(ARCREL|ARCTO|CLOSEPOLY|CURVEREL|CURVETO|FILL|LINEREL|LINETO|MOVEREL|MOVETO|STROKE)\\b"
+    name: "keyword.other.pathoperation.cfdg"
+  productions:
+    match: "\\b(shape|rule|path)\\b"
+    name: "keyword.other.production.cfdg"
+  replacement:
+    captures:
+      "1":
+        name: "entity.name.function.replacement.cfdg"
+    match: "\\b([a-zA-Z_][a-zA-Z_\\-\\.\\d]*+)\\s*(\\(|\\[)"
+    name: "entity.name.section.replacement.cfdg"
+  "section-adjustment":
+    name: "entity.name.section.adjustment.unordered.cfdg"
+    patterns: [
+      {
+        begin: "(\\[)"
+        beginCaptures:
+          "1":
+            name: "entity.name.section.adjustment.unordered.begin.cfdg"
+        end: "(?=\\])"
+        endCaptures:
+          "1":
+            name: "entity.name.section.adjustment.unordered.end.cfdg"
+        patterns: [
+          {
+            include: "#comments"
+          }
+          {
+            include: "#fields"
+          }
+          {
+            include: "#numbers"
+          }
+          {
+            include: "#operators"
+          }
+          {
+            include: "#expressions"
+          }
+          {
+            include: "#adjustments"
+          }
+        ]
+      }
+    ]
+  "section-argument":
+    name: "entity.name.section.argument.cfdg"
+    patterns: [
+      {
+        begin: "(\\()"
+        beginCaptures:
+          "1":
+            name: "entity.name.section.block.argument.begin.cfdg"
+        end: "(?=\\))"
+        endCaptures:
+          "1":
+            name: "entity.name.section.block.argument.end.cfdg"
+        patterns: [
+          {
+            include: "#comments"
+          }
+          {
+            include: "#fields"
+          }
+          {
+            include: "#numbers"
+          }
+          {
+            include: "#operators"
+          }
+          {
+            include: "#types"
+          }
+          {
+            include: "#expressions"
+          }
+          {
+            include: "#cf"
+          }
+        ]
+      }
+    ]
+  "section-compound":
+    begin: "(\\{)"
+    beginCaptures:
+      "1":
+        name: "entity.name.section.compound.begin.cfdg"
+    end: "(?=\\})"
+    endCaptures:
+      "1":
+        name: "entity.name.section.compound.end.cfdg"
+    name: "entity.name.section.compound.cfdg"
+    patterns: [
+      {
+        include: "#comments"
+      }
+      {
+        include: "#fields"
+      }
+      {
+        include: "#numbers"
+      }
+      {
+        include: "#operators"
+      }
+      {
+        include: "#controls"
+      }
+      {
+        include: "#types"
+      }
+      {
+        include: "#directives"
+      }
+      {
+        include: "#productions"
+      }
+      {
+        include: "#terminals"
+      }
+      {
+        include: "#pathoperations"
+      }
+      {
+        include: "#cf"
+      }
+      {
+        include: "#expressions"
+      }
+      {
+        include: "#adjustments"
+      }
+      {
+        include: "#import"
+      }
+      {
+        include: "#startshape"
+      }
+      {
+        include: "#loop"
+      }
+      {
+        include: "#replacement"
+      }
+      {
+        include: "#variable"
+      }
+      {
+        include: "#section-argument"
+      }
+      {
+        include: "#section-adjustment"
+      }
+    ]
+  startshape:
+    captures:
+      "1":
+        name: "keyword.control.directive.startshape.cfdg"
+      "2":
+        name: "entity.name.function.startshape.cfdg"
+      "4":
+        name: "punctuation.definition.parameters.begin.cfdg"
+      "5":
+        name: "variable.parameter.production.cfdg"
+      "6":
+        name: "punctuation.definition.parameters.end.cfdg"
+    match: "\\b(startshape)\\s++([a-zA-Z_][a-zA-Z_\\.\\d]*+)((\\()(.*?)(\\)))*"
+    name: "entity.name.section.startshape.cfdg"
+  terminals:
+    match: "\\b(SQUARE|CIRCLE|TRIANGLE)\\b"
+    name: "keyword.other.terminal.cfdg"
+  types:
+    match: "\\b(number|natural|vector[2-9]|trans)\\b"
+    name: "storage.type.cfdg"
+  variable:
+    captures:
+      "1":
+        name: "variable.other.name.cfdg"
+    match: "\\b([a-zA-Z_][a-zA-Z_\\-\\.\\d]*+)\\s*="
+    name: "variable.other.cfdg"
+
+
 'scopeName': 'source.context-free'

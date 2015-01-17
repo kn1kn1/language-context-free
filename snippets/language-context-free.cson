@@ -1,4 +1,6 @@
 '.source.context-free':
+  # converted from Context Free TextMate bundle
+  # https://github.com/textmate/context-free.tmbundle
   'Background Directive':
     'prefix': 'b'
     'body': 'background {$1}'
@@ -20,3 +22,834 @@
   'Triangle Primitive':
     'prefix': 'T'
     'body': 'TRIANGLE {$1}'
+
+  # converted from Context Free 3 Bundle for TextMate 1.x
+  # https://github.com/Royaljerry/cfdg-3-bundle-for-textmate-1-x
+  "Absolute Signum":
+    prefix: "exv"
+    body: "sg(${1:«NUMBER»})"
+  "Absolute Value":
+    prefix: "exv"
+    body: "abs(${1:«NUMBER»})"
+  Adjustment:
+    prefix: "t"
+    body: "trans ${1:«PARAMETER NAME»}"
+  "Alba Typeface":
+    prefix: "import"
+    body: "import \"../../../../Library/net/royaljerry/${1:«VER»}/typography/typefaces/alba.cfdg\"$0"
+  Align:
+    prefix: "pfa"
+    body: "CF::Align"
+  AllowOverlap:
+    prefix: "con"
+    body: "CF::AllowOverlap = ${1:«NUMBER»}"
+  Alpha:
+    prefix: "con"
+    body: "CF::Alpha = ${1:«NUMBER»}"
+  And:
+    prefix: "exb"
+    body: "bitand(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  "App Header":
+    prefix: "c"
+    body: '''
+      /**
+       * ${1:«APPLICATION NAME»}
+       *
+       * --------------------------------------------------
+       *
+       * ${2:«DESCRIPTION»}
+       *
+       * Dependency:     ${3:«LIBRARY NAME»}
+       *
+       * Context Free v3 Programming
+       * © ${4:«YEAR»} ${TM_AUTHOR_NAME}
+       * ${TM_AUTHOR_EMAIL}
+       * ${TM_AUTHOR_URL}
+       *
+       * ToDo
+       * ----
+       *
+       * «TODO ITEM»
+      */
+      $0
+    '''
+  "Arc Rel [Circle]":
+    prefix: "arc"
+    body: "ARCREL(${1:«X»}, ${2:«Y»}, ${3:«RADIUS»}${4:, ${5:«FLAGS ('pfa')»}})"
+  "Arc Rel [Ellipse]":
+    prefix: "arc"
+    body: "ARCREL(${1:«X»}, ${2:«Y»}, ${3:«X RADIUS»}, ${4:«Y RADIUS»}, ${5:«ELLIPSE ANGLE»}${6:, ${7:«FLAGS ('pfa')»}})"
+  "Arc To [Circle]":
+    prefix: "arc"
+    body: "ARCTO(${1:«X»}, ${2:«Y»}, ${3:«RADIUS»}${4:, ${5:«FLAGS ('pfa')»}})"
+  "Arc To [Ellipse]":
+    prefix: "arc"
+    body: "ARCTO(${1:«X»}, ${2:«Y»}, ${3:«X RADIUS»}, ${4:«Y RADIUS»}, ${5:«ELLIPSE ANGLE»}${6:, ${7:«FLAGS ('pfa')»}})"
+  "Arc-Cosine":
+    prefix: "ext"
+    body: "acos(${1:«NUMBER»})"
+  "Arc-Sine":
+    prefix: "ext"
+    body: "asin(${1:«NUMBER»})"
+  "Arc-Tangent of Y/X":
+    prefix: "ext"
+    body: "atan2(${1:«NUMBER 1 (Y)»}, ${2:«NUMBER 2 (X)»})"
+  "Arc-Tangent":
+    prefix: "ext"
+    body: "atan(${1:«NUMBER»})"
+  ArcCW:
+    prefix: "pfa"
+    body: "CF::ArcCW"
+  ArcLarge:
+    prefix: "pfa"
+    body: "CF::ArcLarge"
+  "Argument Header":
+    prefix: "c"
+    body: " * ARGUMENT        TYPE                DESCRIPTION"
+  Background:
+    prefix: "con"
+    body: "CF::Background = ${1:«ADJUSTMENT ('col' or 'h', 'sat', 'b', 'a')»}"
+  "Based On":
+    prefix: "c"
+    body: '''
+       *                 Based on the script by ${1:«NAME»}
+       *                 taken from ${2:«URL»}
+    '''
+  BevelJoin:
+    prefix: "pfs"
+    body: "CF::BevelJoin"
+  "Black [For Adjustment]":
+    prefix: "col"
+    body: "h 0 sat 0 b 0 a 100"
+  "Black [For Vector]":
+    prefix: "col"
+    body: "0, 0, 0, 100"
+  BorderDynamic:
+    prefix: "con"
+    body: "CF::BorderDynamic = ${1:«NUMBER»}"
+  BorderFixed:
+    prefix: "con"
+    body: "CF::BorderFixed = ${1:«NUMBER»}"
+  Brightness:
+    prefix: "b"
+    body: "b ${1:«BRIGHTNESS»}"
+  ButtCap:
+    prefix: "pfs"
+    body: "CF::ButtCap"
+  "Case [Compound]":
+    prefix: "case"
+    body: '''
+      case ${1:«CASE»}:
+      {
+      	$0
+      }
+    '''
+  "Case [Simple]":
+    prefix: "case"
+    body: "case ${1:«CASE»}: $0"
+  Circle:
+    prefix: "ci"
+    body: "CIRCLE[${1:«ADJUSTMENT»}]"
+  "Close Poly":
+    prefix: "close"
+    body: "CLOSEPOLY(${1:«CF::Align»})"
+  Color:
+    prefix: "import"
+    body: "import \"../../../../Library/net/royaljerry/${1:«VER»}/standard/color.cfdg\"$0"
+  ColorDepth:
+    prefix: "con"
+    body: "CF::ColorDepth = ${1:«NUMBER»}"
+  Continuous:
+    prefix: "pfa"
+    body: "CF::Continuous"
+  Cosine:
+    prefix: "ext"
+    body: "cos(${1:«NUMBER»})"
+  "Curve Rel (Cubic with Own CP)":
+    prefix: "curve"
+    body: "CURVEREL(${1:«X»}, ${2:«Y»}, ${3:«X1»}, ${4:«Y1»}, ${5:«X2»}, ${6:«Y2»})"
+  "Curve Rel (Cubic with Previous CP)":
+    prefix: "curve"
+    body: "CURVEREL(${1:«X»}, ${2:«Y»}, ${3:«X2»}, ${4:«Y2»}${5:, ${6:«CF::Continuous»}})"
+  "Curve Rel (Quadratic with Own CP)":
+    prefix: "curve"
+    body: "CURVEREL(${1:«X»}, ${2:«Y»}, ${3:«X1»}, ${4:«Y1»})"
+  "Curve Rel (Quadratic with Previous CP)":
+    prefix: "curve"
+    body: "CURVEREL(${1:«X»}, ${2:«Y»}${3:, ${4:«CF::Continuous»}})"
+  "Curve To (Cubic with Own CP)":
+    prefix: "curve"
+    body: "CURVETO(${1:«X»}, ${2:«Y»}, ${3:«X1»}, ${4:«Y1»}, ${5:«X2»}, ${6:«Y2»})"
+  "Curve To (Cubic with Previous CP)":
+    prefix: "curve"
+    body: "CURVETO(${1:«X»}, ${2:«Y»}, ${3:«X2»}, ${4:«Y2»}${5:, ${6:«CF::Continuous»}})"
+  "Curve To (Quadratic with Own CP)":
+    prefix: "curve"
+    body: "CURVETO(${1:«X»}, ${2:«Y»}, ${3:«X1»}, ${4:«Y1»})"
+  "Curve To (Quadratic with Previous CP)":
+    prefix: "curve"
+    body: "CURVETO(${1:«X»}, ${2:«Y»}${3:, ${4:«CF::Continuous»}})"
+  Cyclic:
+    prefix: "sym"
+    body: "CF::Cyclic, ${1:«ORDER»}${2:, ${3:«CENTER X»}, ${4:«CENTER Y»}}"
+  "Decimal Logarithm":
+    prefix: "exe"
+    body: "log10(${1:«NUMBER»})"
+  Dependency:
+    prefix: "c"
+    body: " * Dependency:     ${1:«DEPENDENCY»}"
+  Description:
+    prefix: "c"
+    body: " * Description:    ${1:«DESCRIPTION»}"
+  "Detailed Description":
+    prefix: "c"
+    body: " *                 ${1:«DETAILED DESCRIPTION»}."
+  "Diamond: Axial [cm]":
+    prefix: "symwd"
+    body: "CF::cm, ${1:«MIRROR AXIS»}${2:, ${3:«AXIS POSITION»}}"
+  "Diamond: Central [cmm]":
+    prefix: "symwd"
+    body: "CF::cmm${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  Dihedral:
+    prefix: "sym"
+    body: "CF::Dihedral, ${1:«ORDER»}${2:, ${3:«MIRROR ANGLE»}${4:, ${5:«CENTER X»}, ${6:«CENTER Y»}}}"
+  "Divides?":
+    prefix: "exi"
+    body: "divides(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  "Division with Remainder":
+    prefix: "exi"
+    body: "div(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  "Dynamic Random Integer":
+    prefix: "exr"
+    body: "randint(${1:${2:«NUMBER 1»}${3:, ${4:«NUMBER 2»}}})"
+  "Dynamic Random Number":
+    prefix: "exr"
+    body: "rand(${1:${2:«NUMBER 1»}${3:, ${4:«NUMBER 2»}}})"
+  "Else [Compound]":
+    prefix: "else"
+    body: '''
+      else :
+      {
+      	$0
+      }
+    '''
+  "Else [Simple]":
+    prefix: "else"
+    body: "else : $0"
+  "Empty Adjustment":
+    prefix: "pp"
+    body: "[]"
+  "Empty Comment":
+    prefix: "c"
+    body: '''
+      /**
+       * $0
+      */
+    '''
+  EvenOdd:
+    prefix: "pff"
+    body: "CF::EvenOdd"
+  Exponent:
+    prefix: "exe"
+    body: "exp(${1:«NUMBER»})"
+  Factorial:
+    prefix: "exi"
+    body: "factorial(${1:«NUMBER»})"
+  Fill:
+    prefix: "fill"
+    body: "FILL(${1:«FLAGS ('pff')»})${2: [${3:«ADJUSTMENT ('col' or 'h', 'sat', 'b', 'a')»}]}"
+  Flip:
+    prefix: "f"
+    body: "f ${1:«FLIPPING AXIS»}"
+  Floor:
+    prefix: "exi"
+    body: "floor(${1:«NUMBER»})"
+  "Frame Number":
+    prefix: "exa"
+    body: "frame()"
+  Frame:
+    prefix: "con"
+    body: "CF::Frame = ${1:«NUMBER»}"
+  FrameTime:
+    prefix: "con"
+    body: "CF::FrameTime = ${1:«NUMBER»}"
+  "Free Argument":
+    prefix: "c"
+    body: " * ${1:«ARG»}           ${2:«TYPE»}              ${3:«DESCRIPTION»}"
+  "Full Header":
+    prefix: "c"
+    body: '''
+      /**
+       * Description:    ${1:«DESCRIPTION»}
+       *
+      ${2: *                 ${3:«DETAILED DESCRIPTION»}.
+       *
+      }${4: * Usage:          ${5:«USAGE»}
+       *
+      }${6: * Dependency:     ${7:«DEPENDENCY»}
+       *
+      }${8: *                 Based on the script by ${9:«NAME»}
+       *                 taken from ${10:«URL»}
+       *
+      }${11: * ARGUMENT        TYPE                DESCRIPTION
+       *
+      ${12: * ${13:«ARG»}           ${14:«TYPE»}              ${15:«DESCRIPTION»}
+       *
+      }}${16: * ToDo:           ${17:«TODO»}
+       *                 ${18:«TODO»}
+      }*/
+      $0
+    '''
+  Geometry:
+    prefix: "import"
+    body: "import \"../../../../Library/net/royaljerry/${1:«VER»}/standard/geometry.cfdg\"$0"
+  "Global ToDo Header":
+    prefix: "c"
+    body: '''
+       *
+       * ToDo
+       * ----
+       *
+    '''
+  "Global ToDo Item":
+    prefix: "c"
+    body: " * ${1:«TODO ITEM»}"
+  Glyphs:
+    prefix: "import"
+    body: "import \"../../../../Library/net/royaljerry/${1:«VER»}/typography/glyphs.cfdg\"$0"
+  "Hexagonal: Central 1 [p3]":
+    prefix: "symwh"
+    body: "CF::p3${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Hexagonal: Central 2 [p3m1]":
+    prefix: "symwh"
+    body: "CF::p3m1${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Hexagonal: Central 3 [p31m]":
+    prefix: "symwh"
+    body: "CF::p31m${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Hexagonal: Central 4 [p6]":
+    prefix: "symwh"
+    body: "CF::p6${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Hexagonal: Central 5 [p6m]":
+    prefix: "symwh"
+    body: "CF::p6m${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  Hue:
+    prefix: "h"
+    body: "h ${1:«HUE»}"
+  "Hyperbolic Arc-Cosine":
+    prefix: "exh"
+    body: "acosh(${1:«NUMBER»})"
+  "Hyperbolic Arc-Sine":
+    prefix: "exh"
+    body: "asinh(${1:«NUMBER»})"
+  "Hyperbolic Arc-Tangent":
+    prefix: "exh"
+    body: "atanh(${1:«NUMBER»})"
+  "Hyperbolic Cosine":
+    prefix: "exh"
+    body: "cosh(${1:«NUMBER»})"
+  "Hyperbolic Sine":
+    prefix: "exh"
+    body: "sinh(${1:«NUMBER»})"
+  "Hyperbolic Tangent":
+    prefix: "exh"
+    body: "tanh(${1:«NUMBER»})"
+  "If [Compound]":
+    prefix: "if"
+    body: '''
+      if (${1:«CONDITION»})
+      {
+      	${2:«BODY»}
+      }${3:
+      else
+      {
+      	${4:«BODY»}
+      \}}
+    '''
+  "If [Simple]":
+    prefix: "if"
+    body: "if (${1:«CONDITION»}) ${2:«BODY»}${3: else ${4:«BODY»}}"
+  If:
+    prefix: "exv"
+    body: "if(${1:«EXPRESSION»}, ${2:«IF TRUE»}, ${3:«IF FALSE»})"
+  Import:
+    prefix: "import"
+    body: "import \"${1:${2:«FILE»}.cfdg}\""
+  Infinity:
+    prefix: "exc"
+    body: "infinity()"
+  "Is Natural?":
+    prefix: "exi"
+    body: "isNatural(${1:«NUMBER»})"
+  IsoWidth:
+    prefix: "pfs"
+    body: "CF::IsoWidth"
+  "Jump [p11m]":
+    prefix: "symf"
+    body: "CF::p11m${1:, ${2:«AXIS POSITION»}}"
+  Left:
+    prefix: "exb"
+    body: "bitleft(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  Let:
+    prefix: "exv"
+    body: "let(${1:«SEMICOLON SEPARATED 'VAR = EXPR' EXPRESSIONS»}; ${2:«EXPRESSION»})"
+  "Library Header":
+    prefix: "c"
+    body: '''
+      /**
+       * ${1:«LIBRARY NAME»} library for Context Free v3.x
+       * v${2:«VER»}
+       *
+       * --------------------------------------------------
+       *
+       * ${3:«DESCRIPTION»}
+       *
+       * Dependency:     ${4:«LIBRARY NAME»}
+       *
+       * Context Free v3 Programming
+       * © ${5:«YEAR»} ${TM_AUTHOR_NAME}
+       * ${TM_AUTHOR_EMAIL}
+       * ${TM_AUTHOR_URL}
+       *
+       * ToDo
+       * ----
+       *
+       * «TODO ITEM»
+      */
+      $0
+
+    '''
+  "Line Rel":
+    prefix: "line"
+    body: "LINEREL(${1:«X»}, ${2:«Y»})"
+  "Line To":
+    prefix: "line"
+    body: "LINETO(${1:«X»}, ${2:«Y»})"
+  "Loop [Compound, Anonymous]":
+    prefix: "loop"
+    body: '''
+      loop ${1:«MAXIMUM»} [${2:«ADJUSTMENTS»}]
+      {
+      	${3:«BODY»}
+      }${4:
+      finally
+      {
+      	${5:«BODY»}
+      \}}
+    '''
+  "Loop [Compound, Named]":
+    prefix: "loop"
+    body: '''
+      loop ${1:«INDEX»} = ${2:«MAXIMUM»} [${3:«ADJUSTMENTS»}]
+      {
+      	${4:«BODY»}
+      }${5:
+      finally
+      {
+      	${6:«BODY»}
+      \}}
+    '''
+  "Loop [Simple, Anonymous]":
+    prefix: "loop"
+    body: '''
+      loop ${1:«MAXIMUM»} [${2:«ADJUSTMENTS»}]
+      	${3:«BODY»}${4:
+      finally
+      	${5:«BODY»}}
+    '''
+  "Loop [Simple, Named]":
+    prefix: "loop"
+    body: '''
+      loop ${1:«INDEX»} = ${2:«MAXIMUM»} [${3:«ADJUSTMENTS»}]
+      	${4:«BODY»}${5:
+      finally
+      	${6:«BODY»}}
+    '''
+  "Main Chapter Header":
+    prefix: "c"
+    body: '''
+      /**
+       * ##################
+       * # ${1:«CHAPTER NAME»} #
+       * ##################
+      */
+      $0
+    '''
+  Math:
+    prefix: "import"
+    body: "import \"../../../../Library/net/royaljerry/${1:«VER»}/standard/math.cfdg\"$0"
+  MaxNatural:
+    prefix: "con"
+    body: "CF::MaxNatural = ${1:«NUMBER»}"
+  Maximum:
+    prefix: "exv"
+    body: "max(${1:«COMMA SEPARATED ARGUMENTS»})"
+  Minimum:
+    prefix: "exv"
+    body: "min(${1:«COMMA SEPARATED ARGUMENTS»})"
+  MinimumSize:
+    prefix: "con"
+    body: "CF::MinimumSize = ${1:«NUMBER»}"
+  MiterJoin:
+    prefix: "pfs"
+    body: "CF::MiterJoin"
+  Modulo:
+    prefix: "exi"
+    body: "mod(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  "Move Rel":
+    prefix: "move"
+    body: "MOVEREL(${1:«X»}, ${2:«Y»})"
+  "Move To":
+    prefix: "move"
+    body: "MOVETO(${1:«X»}, ${2:«Y»})"
+  "Natural Logarithm":
+    prefix: "exe"
+    body: "log(${1:«NUMBER»})"
+  Natural:
+    prefix: "t"
+    body: "natural ${1:«PARAMETER NAME»}"
+  "New Comment Line":
+    prefix: "c"
+    body: " * $0"
+  Not:
+    prefix: "exb"
+    body: "bitnot(${1:«NUMBER»})"
+  Number:
+    prefix: "t"
+    body: "number ${1:«PARAMETER NAME»}"
+  Or:
+    prefix: "exb"
+    body: "bitor(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  "Path [With No Headers]":
+    prefix: "pp"
+    body: '''
+      path ${1:«PATH NAME»}${2:(${3:«ARGS»})}
+      {
+      	${0:«BODY»}
+      }
+    '''
+  "Path [With Simple Header]":
+    prefix: "path"
+    body: '''
+      /**
+       * Description:    ${1:«DESCRIPTION»}
+       *
+      ${2: * ARGUMENT        TYPE                DESCRIPTION
+       *
+      ${3: * ${4:«ARG»}           ${5:«TYPE»}              ${6:«DESCRIPTION»}
+       *
+      } *
+      }*/
+      path ${7:«PATH NAME»}${8:(${9:«ARGS»})}
+      {
+      	${0:«BODY»}
+      }
+      ${10:// Shortcuts for $7}
+
+    '''
+  "Rectangular: Glide Reflection [pg]":
+    prefix: "symwr"
+    body: "CF::pg, ${1:«GLIDE AXIS»}${2:, ${3:«AXIS POSITION»}}"
+  "Rectangular: Reflection Combo 1 [pmm]":
+    prefix: "symwr"
+    body: "CF::pmm${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Rectangular: Reflection Combo 2 [pgg]":
+    prefix: "symwr"
+    body: "CF::pgg${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Rectangular: Reflection Combo 3 [pmg]":
+    prefix: "symwr"
+    body: "CF::pmg, ${1:«MIRROR AXIS»}${2:, ${3:«CENTER X»}, ${4:«CENTER Y»}}"
+  "Rectangular: Simple Reflection [pm]":
+    prefix: "symwr"
+    body: "CF::pm, ${1:«MIRROR AXIS»}${2:, ${3:«AXIS POSITION»}}"
+  Replacement:
+    prefix: "re"
+    body: "${1:«RULE NAME»}${2:(${3:«ARGS»})}[${4:«ADJUSTMENT»}]"
+  "Restricted Argument":
+    prefix: "c"
+    body: '''
+       * ${1:«ARG»}           ${2:«TYPE»}              ${3:«DESCRIPTION»}
+       *                                     ALLOWED VALUES:
+       *                                     ${4:«VAL»}               ${5:«DESCRIPTION»}
+    '''
+  Right:
+    prefix: "exb"
+    body: "bitright(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  Rotation:
+    prefix: "r"
+    body: "r ${1:«ROTATION»}"
+  RoundCap:
+    prefix: "pfs"
+    body: "CF::RoundCap"
+  RoundJoin:
+    prefix: "pfs"
+    body: "CF::RoundJoin"
+  "Rule [Compound]":
+    prefix: "rr"
+    body: '''
+      ${1:// ${2:«DESCRIPTION»}
+      }rule${3: ${4:«WEIGHT»}}
+      {
+      	${0:«BODY»}
+      }
+    '''
+  "Rule [Simple]":
+    prefix: "rr"
+    body: '''
+      ${1:// ${2:«DESCRIPTION»}
+      }rule${3: ${4:«WEIGHT»}} {${0:«BODY»}}
+    '''
+  Saturation:
+    prefix: "sat"
+    body: "sat ${1:«SATURATION»}"
+  Scale:
+    prefix: "s"
+    body: "s ${1:«SIZE EQUAL OR X»}${2: ${3:«SIZE Y»}${4: ${5:«SIZE Z»}}}"
+  Select:
+    prefix: "exv"
+    body: "select(${1:«EXPRESSION»}, ${2:«COMMA SEPARATED EXPRESSIONS»})"
+  "Shape [Compound with No Headers]":
+    prefix: "sh"
+    body: '''
+      shape ${1:«SHAPE NAME»}${2:(${3:«ARGS»})}
+      {
+      	${0:«BODY»}
+      }
+    '''
+  "Shape [Compound with Simple Header]":
+    prefix: "shape"
+    body: '''
+      /**
+       * Description:    ${1:«DESCRIPTION»}
+       *
+      ${2: * ARGUMENT        TYPE                DESCRIPTION
+       *
+      ${3: * ${4:«ARG»}           ${5:«TYPE»}              ${6:«DESCRIPTION»}
+       *
+      } *
+      }*/
+      shape ${7:«SHAPE NAME»}${8:(${9:«ARGS»})}
+      {
+      	${0:«BODY»}
+      }
+      ${10:// Shortcuts for $7}
+
+    '''
+  "Shape [Compound]":
+    prefix: "shape"
+    body: '''
+      /**
+       * Description:    ${1:«DESCRIPTION»}
+       *
+      ${2: *                 ${3:«DETAILED DESCRIPTION»}.
+       *
+      }${4: * Usage:          ${5:«USAGE»}
+       *
+      }${6: * Dependency:     ${7:«DEPENDENCY»}
+       *
+      }${8: *                 Based on the script by ${9:«NAME»}
+       *                 taken from ${10:«URL»}
+       *
+      }${11: * ARGUMENT        TYPE                DESCRIPTION
+       *
+      ${12: * ${13:«ARG»}           ${14:«TYPE»}              ${15:«DESCRIPTION»}
+       *
+      }}${16: * ToDo:           ${17:«TODO»}
+       *                 ${18:«TODO»}
+      }*/
+      shape ${19:«SHAPE NAME»}${20:(${21:«ARGS»})}
+      {
+      	${0:«BODY»}
+      }
+      ${22:// Shortcuts for $19}
+
+    '''
+  "Shape [Simple]":
+    prefix: "shape"
+    body: '''
+      /**
+       * Description:    ${1:«DESCRIPTION»}
+       *
+      ${2: *                 ${3:«DETAILED DESCRIPTION»}.
+       *
+      }${4: * Usage:          ${5:«USAGE»}
+       *
+      }${6: * Dependency:     ${7:«DEPENDENCY»}
+       *
+      }${8: *                 Based on the script by ${9:«NAME»}
+       *                 taken from ${10:«URL»}.
+       *
+      }${11: * ARGUMENT        TYPE                DESCRIPTION
+       *
+      ${12: * ${13:«ARG»}           ${14:«TYPE»}              ${15:«DESCRIPTION»}
+       *
+      }}${16: * ToDo:           ${17:«TODO»}
+       *                 ${18:«TODO»}
+      }*/
+      shape ${19:«SHAPE NAME»}${20:(${21:«ARGS»})}
+      	${0:«REPLACEMENT»}
+      ${22:// Shortcuts for $19}
+
+    '''
+  Shortcuts:
+    prefix: "c"
+    body: '''
+      // Shortcuts for ${1:«PRODUCTION NAME»}
+      $0
+    '''
+  "Sidle [p1m1]":
+    prefix: "symf"
+    body: "CF::p1m1${1:, ${2:«AXIS POSITION»}}"
+  "Signed Infinity":
+    prefix: "exc"
+    body: "infinity(${1:«NUMBER»})"
+  "Simple Header":
+    prefix: "c"
+    body: '''
+      /**
+       * Description:    ${1:«DESCRIPTION»}
+       *
+      ${2: * ARGUMENT        TYPE                DESCRIPTION
+       *
+      ${3: * ${4:«ARG»}           ${5:«TYPE»}              ${6:«DESCRIPTION»}}
+      }*/
+      $0
+    '''
+  Sine:
+    prefix: "ext"
+    body: "sin(${1:«NUMBER»})"
+  Size:
+    prefix: "con"
+    body: "CF::Size = ${1:<ADJUSTMENT ('s', 'x', 'y')»}"
+  Skew:
+    prefix: "sk"
+    body: "skew ${1:«SKEW Y AXIS»} ${2:«SKEW X AXIS»}"
+  "Spinning Hop [p2]":
+    prefix: "symf"
+    body: "CF::p2${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Spinning Jump [p2mm]":
+    prefix: "symf"
+    body: "CF::p2mm${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Spinning Sidle [p2mg]":
+    prefix: "symf"
+    body: "CF::p2mg${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Square Root":
+    prefix: "exe"
+    body: "sqrt(${1:«NUMBER»})"
+  Square:
+    prefix: "sq"
+    body: "SQUARE[${1:«ADJUSTMENT»}]"
+  "Square: Central 1 [p4]":
+    prefix: "symws"
+    body: "CF::p4${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Square: Central 2 [p4m]":
+    prefix: "symws"
+    body: "CF::p4m${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  "Square: Central 3 [p4g]":
+    prefix: "symws"
+    body: "CF::p4g${1:, ${2:«CENTER X»}, ${3:«CENTER Y»}}"
+  SquareCap:
+    prefix: "pfs"
+    body: "CF::SquareCap"
+  Startshape:
+    prefix: "start"
+    body: "startshape ${1:«SHAPE»}"
+  "Static Random Number":
+    prefix: "exr"
+    body: "rand_static(${1:${2:«NUMBER 1»}${3:, ${4:«NUMBER 2»}}})"
+  "Step [p11g]":
+    prefix: "symf"
+    body: "CF::p11g${1:, ${2:«AXIS POSITION»}}"
+  Stroke:
+    prefix: "stroke"
+    body: "STROKE(${1:«WIDTH»}, ${2:«FLAGS ('pfs')»})${3: [${4:«ADJUSTMENT ('x', 'y', 'r', 's', 'sk', 'f', 'h', 'sat', 'b', 'a')»}]}"
+  "Sub Chapter Header":
+    prefix: "c"
+    body: '''
+      /**
+       * --- ${1:«CHAPTER NAME»} ---
+      */
+      $0
+    '''
+  Switch:
+    prefix: "switch"
+    body: '''
+      switch (${1:«CONDITION»})
+      {
+      	$0
+      }
+    '''
+  Symmetry:
+    prefix: "con"
+    body: "CF::Symmetry = ${1:«SYMMETRY LIST ('sym')»}"
+  TRSSF:
+    prefix: "trs"
+    body: "${1:x ${2:«X»} y ${3:«Y»} z ${4:«Z»}}${5: r ${6:«ROTATION»}}${7: s ${8:«SIZE X»} ${9:«SIZE Y»} ${10:«SIZE Z»}}${11: skew ${12:«SKEW Y AXIS»} ${13:«SKEW X AXIS»}}${14: f ${15:«FLIPPING AXIS»}}"
+  Tangent:
+    prefix: "ext"
+    body: "tan(${1:«NUMBER»})"
+  Tile:
+    prefix: "con"
+    body: "CF::Tile = ${1:«ADJUSTMENT ('x', 'y', 'r', 's', 'sk', 'f')»}"
+  Time:
+    prefix: "con"
+    body: "CF::Time = ${1:«ADJUSTMENT ('ti')»}"
+  Timescale:
+    prefix: "tis"
+    body: "timescale ${1:«TIMESCALE»}"
+  "ToDo Block":
+    prefix: "c"
+    body: '''
+       * ToDo:           ${1:«TODO»}
+       *                 ${2:«TODO»}
+    '''
+  "ToDo Item":
+    prefix: "c"
+    body: " *                 ${1:«TODO»}"
+  "Transform [Compound]":
+    prefix: "trans"
+    body: '''
+      transform [${1:«ADJUSTMENT»}]
+      {
+      	${2:«BODY»}
+      }
+    '''
+  "Transform [Simple]":
+    prefix: "trans"
+    body: "transform [${1:«ADJUSTMENT»}] ${2:«BODY»}"
+  Transform:
+    prefix: "tf"
+    body: "trans ${1:«TRANSFORM X1»}${2: ${3:«TRANSFORM Y1»}${4:${5: ${6:«TRANSFORM X2»} ${7:«TRANSFORM Y2»}}${8: ${9:«TRANSFORM X3»} ${10:«TRANSFORM Y3»}}}}"
+  Triangle:
+    prefix: "tr"
+    body: "TRIANGLE[${1:«ADJUSTMENT»}]"
+  Usage:
+    prefix: "c"
+    body: " * Usage:          ${1:«USAGE»}"
+  "Vector argument":
+    prefix: "c"
+    body: '''
+       * ${1:«ARG»}           Vector${2:«DIMN»}        ${3:«DESCRIPTION»}
+       *                                     INDICES:
+       *                                     ${4:«#»}                 ${5:«DESCRIPTION»}
+    '''
+  Vector:
+    prefix: "t"
+    body: "vector${1:«DIMENSION (0…9)»} ${2:«PARAMETER NAME»}"
+  "White [For Adjustment]":
+    prefix: "col"
+    body: "h 0 sat 0 b 100 a 100"
+  "White [For Vector]":
+    prefix: "col"
+    body: "0, 0, 100, 100"
+  Xor:
+    prefix: "exb"
+    body: "bitxor(${1:«NUMBER 1»}, ${2:«NUMBER 2»})"
+  x:
+    prefix: "x"
+    body: "x ${1:«X»}"
+  y:
+    prefix: "y"
+    body: "y ${1:«Y»}"
+  z:
+    prefix: "z"
+    body: "z ${1:«Z»}"
