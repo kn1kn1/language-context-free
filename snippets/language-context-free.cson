@@ -25,16 +25,16 @@
 
   # converted from Context Free 3 Bundle for TextMate 1.x
   # https://github.com/Royaljerry/cfdg-3-bundle-for-textmate-1-x
-  "Background":
+  "Background Directive(cfdg3)":
     "prefix": "ba"
     "body": "CF::Background = ${1:«ADJUSTMENT ('col' or 'h', 'sat', 'b', 'a')»}"
-  "Circle":
+  "Circle Primitive(cfdg3)":
     "prefix": "CI"
     "body": "CIRCLE [${1:«ADJUSTMENT»}]"
-  "Import":
+  "Import Directive(cfdg3)":
     "prefix": "im"
     "body": "import \"${1:${2:«FILE»}.cfdg}\""
-  "Shape":
+  "Shape Directive(cfdg3)":
     "prefix": "sh"
     "body": '''
       shape ${1:«SHAPE NAME»} ${2:(${3:«ARGS»})}
@@ -42,12 +42,12 @@
       	${0:«BODY»}
       }
     '''
-  "Square":
+  "Square Primitive(cfdg3)":
     "prefix": "SQ"
     "body": "SQUARE [${1:«ADJUSTMENT»}]"
-  "Startshape":
+  "Startshape Directive(cfdg3)":
     "prefix": "st"
     "body": "startshape ${1:«SHAPE»}"
-  "Triangle":
+  "Triangle Primitive(cfdg3)":
     "prefix": "TR"
     "body": "TRIANGLE [${1:«ADJUSTMENT»}]"
