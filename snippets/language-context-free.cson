@@ -10,7 +10,7 @@
   'Include Directive':
     'prefix': 'i'
     'body': 'include ${1:${2:file}.cfdg}'
-  'Rule':
+  'Rule Directive':
     'prefix': 'r'
     'body': 'rule ${1:shape} ${2:weight }{\n\t$3\n}'
   'Square Primitive':
