@@ -14,7 +14,8 @@ class CfdgImageEditor
     if fs.isFileSync(filePath)
       new CfdgImageEditor(cfdgFileName, filePath)
     else
-      console.warn "Could not deserialize image editor for path '#{filePath}' because that file no longer exists"
+      console.warn "Could not deserialize image editor for path '#{filePath}' \
+        because that file no longer exists"
 
   constructor: (cfdgFileName, filePath) ->
     @cfdgFileName = cfdgFileName
@@ -22,7 +23,9 @@ class CfdgImageEditor
     @subscriptions = new CompositeDisposable()
 
   serialize: ->
-    {cfdgFileName: @cfdgFileName, filePath: @getPath(), deserializer: @constructor.name}
+    cfdgFileName: @cfdgFileName,
+    filePath: @getPath(),
+    deserializer: @constructor.name
 
   getViewClass: ->
     require './cfdg-image-editor-view'

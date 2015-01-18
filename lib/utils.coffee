@@ -6,7 +6,7 @@ class Utils
     "context-free-render://filepath#{filePath}?cfdg=#{cfdgFileName}"
 
   @copyFile: (source, target, cb) ->
-    cbCalled = false;
+    cbCalled = false
 
     done = (err) ->
       return if cbCalled

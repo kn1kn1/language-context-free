@@ -20,7 +20,8 @@ module.exports = ContextFreeRender =
       title: 'LD_LIBRARY_PATH'
       type: 'string'
       default: ''
-      description: '(Optional) directory where libPng dynamic library should be searched for first.'
+      description: '(Optional) directory where libPng dynamic library should \
+        be searched for first.'
     renderTimeoutInMillis:
       type: 'integer'
       default: 3000
@@ -72,10 +73,12 @@ module.exports = ContextFreeRender =
         # changed from Settings panel
         @addVariation = false
 
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
+    # Events subscribed to in atom's system can be easily cleaned up
+    # with a CompositeDisposable
     @subscriptions = new CompositeDisposable
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'context-free:render': => @render()
+    @subscriptions.add atom.commands.add 'atom-workspace',
+      'context-free:render': => @render()
 
     atom.workspace.addOpener @openEditor
 
@@ -131,14 +134,16 @@ module.exports = ContextFreeRender =
     unless fs.existsSync command
       commandName = path.basename command
       atom.confirm
-        message: "#{command} not found. Make sure `#{commandName}` is installed and on your PATH"
+        message: "#{command} not found. Make sure `#{commandName}` is \
+          installed and on your PATH"
         buttons: ["OK"]
       return
 
     ldLibraryPath = atom.config.get 'language-context-free.ldLibraryPath'
     console.log "ldLibraryPath: #{ldLibraryPath}"
     if ldLibraryPath
-      ldLibraryPathKey = if @platform is 'darwin' then 'DYLD_LIBRARY_PATH' else 'LD_LIBRARY_PATH'
+      ldLibraryPathKey = if @platform is 'darwin' then 'DYLD_LIBRARY_PATH' else
+        'LD_LIBRARY_PATH'
       env[ldLibraryPathKey] = ldLibraryPath
 
     outFilePath = path.join @tempDirPah, "#{cfdgFileName}.png"
@@ -165,7 +170,8 @@ module.exports = ContextFreeRender =
     timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
     console.log "timeout: #{timeout}"
 
-    cfdgProcess = new BufferedProcess {command, args, options, stdout, stderr, exit}
+    cfdgProcess =
+      new BufferedProcess {command, args, options, stdout, stderr, exit}
 
     # do not timeout when the setting value is 0
     return unless timeout?
@@ -184,11 +190,12 @@ module.exports = ContextFreeRender =
     uri = utils.uriForFile cfdgFileName, outFilePath
     console.log 'uri: ' + uri
     previousActivePane = atom.workspace.getActivePane()
-    atom.workspace.open(uri, split: 'right', searchAllPanes: true).done (openedEditor) ->
-      console.log 'openedEditor.getTitle()): ' + openedEditor.getTitle()
-      console.log 'openedEditor.getURI()): ' + openedEditor.getURI()
-      console.log 'openedEditor.getPath()): ' + openedEditor.getPath()
-      previousActivePane.activate()
+    atom.workspace.open(uri, split: 'right', searchAllPanes: true)
+      .done (openedEditor) ->
+        console.log 'openedEditor.getTitle()): ' + openedEditor.getTitle()
+        console.log 'openedEditor.getURI()): ' + openedEditor.getURI()
+        console.log 'openedEditor.getPath()): ' + openedEditor.getPath()
+        previousActivePane.activate()
 
   openEditor: (uriToOpen) ->
     console.log 'addOpener - uriToOpen: ' + uriToOpen
@@ -197,7 +204,8 @@ module.exports = ContextFreeRender =
     catch error
       console.log 'error'
       return
-    console.log 'protocol: ' + protocol + ', host: ' + host + ', pathname: ' + pathname + ', query: ' + query
+    console.log 'protocol: ' + protocol + ', host: ' + host + ', pathname: ' +
+      pathname + ', query: ' + query
     return unless protocol is 'context-free-render:'
 
     cfdgFileName = query['cfdg']
