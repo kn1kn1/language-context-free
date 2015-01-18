@@ -1,11 +1,12 @@
 utils = require './utils'
-Variation = require '../lib/variation'
+Variation = require './variation'
+VariationHolder = require './variation-holder'
 path = require 'path'
 fs = require 'fs-plus'
 {File} = require 'pathwatcher'
 {CompositeDisposable} = require 'atom'
 
-# Editor model for an image file
+# Editor model for an image file.
 module.exports =
 class CfdgImageEditor
   atom.deserializers.add(this)
@@ -82,10 +83,17 @@ class CfdgImageEditor
   isEqual: (other) ->
     other instanceof CfdgImageEditor and @getURI() is other.getURI()
 
+  # Retrieves the name of cfdg file.
+  #
+  # Returns a {String}.
   getCfdgFileName: -> @cfdgFileName
 
-  getVariation: -> Variation.getVariation(@getPath())
+  # Retrieves the variation code of this image.
+  #
+  # Returns a {String}.
+  getVariation: -> VariationHolder.getVariation(@getPath())
 
+  # Save a copy of this image.
   saveAs: ->
     srcFilePath = @getPath()
     console.log 'srcFilePath: ' + srcFilePath

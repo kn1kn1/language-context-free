@@ -1,26 +1,37 @@
 utils = require "./utils"
 
+# Variation code model.
+#
+#  Variation code is a string which consists of 1 to 6 upper case alphabet.
+#  ('A' ~ 'ZZZZZZ')
 module.exports =
 class Variation
-  map = {}
-
-  @setVariation: (filePath, variation) ->
-    map[filePath] = variation
-
-  @getVariation: (filePath) ->
-    map[filePath]
-
   constructor: (str) ->
     @value = str.toUpperCase()
 
+  # Check if specified str is alphabetic.
+  #
+  # str: The {String} to be checked.
+  #
+  # Returns true if specified str is alphabetic.
   @isAlphabetic: (str) ->
     return /^[a-zA-Z]+$/.test(str)
 
+  # Check if specified str is a valid variation code.
+  #
+  # str: The {String} to be checked.
+  #
+  # Returns true if specified str is valid.
   @isValid: (str) ->
     return false if !str
     return false unless @isAlphabetic(str)
     str.length <= 6
 
+  # Add the variation by one.
+  #
+  # If added result is overflow, the result will be rotated to 'A'.
+  #
+  # Returns The {String} new(added) variation code.
   add1: ->
     codes = []
     for v, i in @value

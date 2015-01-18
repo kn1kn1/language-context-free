@@ -1,5 +1,6 @@
 utils = require './utils'
-Variation = require '../lib/variation'
+Variation = require './variation'
+VariationHolder = require './variation-holder'
 CfdgImageEditor = require './cfdg-image-editor'
 {CompositeDisposable} = require 'atom'
 {BufferedProcess} = require 'atom'
@@ -9,6 +10,7 @@ fs = require 'fs-plus'
 temp = require 'temp'
 os = require 'os'
 
+# Main module of the package.
 module.exports = ContextFreeRender =
   config:
     cfdgCommandPath:
@@ -83,8 +85,8 @@ module.exports = ContextFreeRender =
     atom.workspace.addOpener @openEditor
 
   deactivate: ->
-    # temp.cleanupSync()
 
+  # Render image from cfdg file.
   render: ->
     console.log 'render'
 
@@ -122,6 +124,13 @@ module.exports = ContextFreeRender =
     env = process.env
     @execCfdg fileName, filePath, @variation.value, cwd, env
 
+  # Execute cfdg command.
+  #
+  # cfdgFileName: The {String} name of cfdg file.
+  # cfdgFilePath: The {String} path of cfdg file.
+  # variation: The {String} variation code.
+  # cwd: The {String} working directory to execute the process.
+  # env: The {Object} containing the user environment.
   execCfdg: (cfdgFileName, cfdgFilePath, variation, cwd, env) ->
     command = atom.config.get 'language-context-free.cfdgCommandPath'
     console.log "command: #{command}"
@@ -164,7 +173,7 @@ module.exports = ContextFreeRender =
           buttons: ["OK"]
         return
 
-      Variation.setVariation(outFilePath, variation)
+      VariationHolder.putVariation(outFilePath, variation)
       @sendOpenCommand cfdgFileName, outFilePath
 
     timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
@@ -186,6 +195,10 @@ module.exports = ContextFreeRender =
           buttons: ["OK"]
     setTimeout callback, timeout
 
+  # Send an intent to open new editor to the atom workspace.
+  #
+  # cfdgFileName: The {String} name of cfdg file.
+  # outFilePath: The {String} path of image output file.
   sendOpenCommand: (cfdgFileName, outFilePath) ->
     uri = utils.uriForFile cfdgFileName, outFilePath
     console.log 'uri: ' + uri
@@ -197,6 +210,9 @@ module.exports = ContextFreeRender =
         console.log 'openedEditor.getPath()): ' + openedEditor.getPath()
         previousActivePane.activate()
 
+  # Create a {CfdgImageEditor} and open the image.
+  #
+  # uriToOpen: The {String} uri.
   openEditor: (uriToOpen) ->
     console.log 'addOpener - uriToOpen: ' + uriToOpen
     try

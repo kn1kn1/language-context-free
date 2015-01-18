@@ -5,7 +5,7 @@ fs = require 'fs-plus'
 {$, ScrollView} = require 'atom-space-pen-views'
 {Emitter, CompositeDisposable} = require 'atom'
 
-# View that renders the image of an {ImageEditor}.
+# View that renders the image of an {CfdgImageEditor}.
 module.exports =
 class CfdgImageEditorView extends ScrollView
   @content: ->
@@ -95,6 +95,7 @@ class CfdgImageEditorView extends ScrollView
     # TODO: in the future, probably validate the color
     @image.css 'background-color', color
 
+  # Save a copy of this image.
   saveAs: ->
     return if @loading
     @editor.saveAs()
