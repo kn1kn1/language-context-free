@@ -85,6 +85,7 @@ module.exports = ContextFreeRender =
     atom.workspace.addOpener @openEditor
 
   deactivate: ->
+    @subscriptions.dispose()
 
   # Render image from cfdg file.
   render: ->
