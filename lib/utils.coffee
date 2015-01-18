@@ -12,8 +12,8 @@ class Utils
 
   # Copiy a file.
   #
-  # source: The {String} file path which will be copied from.
-  # target: The {String} file path which will be copied to.
+  # source: The {String} file path to be copied from.
+  # target: The {String} file path to be copied to.
   # cb: The {Function} callback when the copy finished.
   @copyFile: (source, target, cb) ->
     cbCalled = false
@@ -35,7 +35,7 @@ class Utils
 
   # Remove a file.
   #
-  # filePath: The {String} file path which will be removed.
+  # filePath: The {String} file path to be removed.
   @rmFile: (filePath) ->
     return unless filePath?
     return unless fs.existsSync filePath
