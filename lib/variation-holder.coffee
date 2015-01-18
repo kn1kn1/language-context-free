@@ -1,6 +1,7 @@
 # Variation code holder which maps a filePath to the variation code.
 module.exports =
 class VariationHolder
+  # Internal: Field holding the map.
   map = {}
 
   # Associate the specified variation code {String} with the specified
