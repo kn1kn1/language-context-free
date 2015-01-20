@@ -28,9 +28,6 @@
   "Background Directive(cfdg3)":
     "prefix": "ba"
     "body": "CF::Background = ${1:«ADJUSTMENT ('col' or 'h', 'sat', 'b', 'a')»}"
-  "Circle Primitive(cfdg3)":
-    "prefix": "CI"
-    "body": "CIRCLE [${1:«ADJUSTMENT»}]"
   "Import Directive(cfdg3)":
     "prefix": "im"
     "body": "import \"${1:${2:«FILE»}.cfdg}\""
@@ -42,12 +39,3 @@
       	${0:«BODY»}
       }
     '''
-  "Square Primitive(cfdg3)":
-    "prefix": "SQ"
-    "body": "SQUARE [${1:«ADJUSTMENT»}]"
-  "Startshape Directive(cfdg3)":
-    "prefix": "st"
-    "body": "startshape ${1:«SHAPE»}"
-  "Triangle Primitive(cfdg3)":
-    "prefix": "TR"
-    "body": "TRIANGLE [${1:«ADJUSTMENT»}]"
