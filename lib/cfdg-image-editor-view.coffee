@@ -1,5 +1,4 @@
 utils = require './utils'
-_ = require 'underscore-plus'
 path = require 'path'
 fs = require 'fs-plus'
 {$, ScrollView} = require 'atom-space-pen-views'
