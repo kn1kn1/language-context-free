@@ -99,7 +99,12 @@ class CfdgImageEditor
     console.log 'srcFilePath: ' + srcFilePath
     return unless srcFilePath?
 
-    projectPath = atom.project.getPath()
+    paths = atom.project.getPaths()
+    console.log 'paths: ' + paths
+    return unless paths?
+    return if paths.length < 1
+
+    projectPath = paths[0]
     console.log 'projectPath: ' + projectPath
     cfdgFileName = @getCfdgFileName()
     unless cfdgFileName?
