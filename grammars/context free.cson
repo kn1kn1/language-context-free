@@ -94,15 +94,6 @@
   {
     include: "#variable"
   }
-  {
-    include: "#section-argument"
-  }
-  {
-    include: "#section-adjustment"
-  }
-  {
-    include: "#section-compound"
-  }
 ]
 
 'repository':
@@ -645,92 +636,11 @@
     match: "\\b(shape|rule|path)\\b"
     name: "keyword.other.production.cfdg"
   replacement:
-    captures:
-      "1":
-        name: "entity.name.function.replacement.cfdg"
-    match: "\\b([a-zA-Z_][a-zA-Z_\\-\\.\\d]*+)\\s*(\\(|\\[)"
-    name: "entity.name.section.replacement.cfdg"
-  "section-adjustment":
-    name: "entity.name.section.adjustment.unordered.cfdg"
-    patterns: [
-      {
-        begin: "(\\[)"
-        beginCaptures:
-          "1":
-            name: "entity.name.section.adjustment.unordered.begin.cfdg"
-        end: "(?=\\])"
-        endCaptures:
-          "1":
-            name: "entity.name.section.adjustment.unordered.end.cfdg"
-        patterns: [
-          {
-            include: "#comments"
-          }
-          {
-            include: "#fields"
-          }
-          {
-            include: "#numbers"
-          }
-          {
-            include: "#operators"
-          }
-          {
-            include: "#expressions"
-          }
-          {
-            include: "#adjustments"
-          }
-        ]
-      }
-    ]
-  "section-argument":
-    name: "entity.name.section.argument.cfdg"
-    patterns: [
-      {
-        begin: "(\\()"
-        beginCaptures:
-          "1":
-            name: "entity.name.section.block.argument.begin.cfdg"
-        end: "(?=\\))"
-        endCaptures:
-          "1":
-            name: "entity.name.section.block.argument.end.cfdg"
-        patterns: [
-          {
-            include: "#comments"
-          }
-          {
-            include: "#fields"
-          }
-          {
-            include: "#numbers"
-          }
-          {
-            include: "#operators"
-          }
-          {
-            include: "#types"
-          }
-          {
-            include: "#expressions"
-          }
-          {
-            include: "#cf"
-          }
-        ]
-      }
-    ]
-  "section-compound":
-    begin: "(\\{)"
+    begin: '\\b([a-zA-Z_][a-zA-Z_\\-\\.\\d]*+)\\s*(\\{|\\[)'
     beginCaptures:
       "1":
-        name: "entity.name.section.compound.begin.cfdg"
-    end: "(?=\\})"
-    endCaptures:
-      "1":
-        name: "entity.name.section.compound.end.cfdg"
-    name: "entity.name.section.compound.cfdg"
+        name: "entity.name.function.replacement.cfdg"
+    end: '\\}|\\]'
     patterns: [
       {
         include: "#comments"
@@ -745,52 +655,16 @@
         include: "#operators"
       }
       {
-        include: "#controls"
-      }
-      {
-        include: "#types"
-      }
-      {
-        include: "#directives"
-      }
-      {
-        include: "#productions"
-      }
-      {
-        include: "#terminals"
-      }
-      {
-        include: "#pathoperations"
-      }
-      {
-        include: "#cf"
-      }
-      {
         include: "#expressions"
       }
       {
         include: "#adjustments"
       }
       {
-        include: "#import"
-      }
-      {
-        include: "#startshape"
-      }
-      {
-        include: "#loop"
-      }
-      {
         include: "#replacement"
       }
       {
         include: "#variable"
-      }
-      {
-        include: "#section-argument"
-      }
-      {
-        include: "#section-adjustment"
       }
     ]
   startshape:
