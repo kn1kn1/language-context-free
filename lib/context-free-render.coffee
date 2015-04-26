@@ -29,6 +29,16 @@ module.exports = ContextFreeRender =
       default: 3000
       minimum: 0
       description: '(Optional) duration in msec to timeout rendering.'
+    width:
+      type: 'integer'
+      default: 500
+      minimum: 0
+      description: '(Optional) width in pixels(png).'
+    height:
+      type: 'integer'
+      default: 500
+      minimum: 0
+      description: '(Optional) height in pixels(png).'
     variation:
       type: 'string'
       default: ''
@@ -156,8 +166,16 @@ module.exports = ContextFreeRender =
         'LD_LIBRARY_PATH'
       env[ldLibraryPathKey] = ldLibraryPath
 
+    width = atom.config.get 'language-context-free.width'
+    unless width
+      width = 500
+    height = atom.config.get 'language-context-free.height'
+    unless height
+      height = 500
+
     outFilePath = path.join @tempDirPah, "#{cfdgFileName}.png"
-    args = ['-s', '400', '-v', variation, cfdgFilePath, outFilePath]
+    console.log "outFilePath: #{outFilePath}"
+    args = ['-w', width, '-h', height, '-v', variation, cfdgFilePath, outFilePath]
     options =
       cwd: cwd
       env: env
