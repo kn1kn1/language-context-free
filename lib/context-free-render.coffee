@@ -1,14 +1,15 @@
-utils = require './utils'
-Variation = require './variation'
-VariationHolder = require './variation-holder'
-CfdgImageEditor = require './cfdg-image-editor'
+utils = null
+Variation = null
+VariationHolder = null
+CfdgImageEditor = null
+url = null
+path = null
+fs = null
+temp = null
+os = null
+
 {CompositeDisposable} = require 'atom'
 {BufferedProcess} = require 'atom'
-url = require 'url'
-path = require 'path'
-fs = require 'fs-plus'
-temp = require 'temp'
-os = require 'os'
 
 # Main module of the package.
 module.exports = ContextFreeRender =
@@ -53,19 +54,7 @@ module.exports = ContextFreeRender =
   selfChange: false
 
   activate: (state) ->
-    temp.track()
-
-    @platform = process.platform
-    console.log 'platform: ' + @platform
-
-    # WORKAROUND for linux tmp dir
-    if @platform is 'linux'
-      temp.dir = path.resolve os.tmpdir()
-
-    console.log 'temp.dir: ' + temp.dir
-    @tempDirPah = temp.mkdirSync 'atom-cfdg-'
-    console.log 'tempDirPah: ' + @tempDirPah
-
+    Variation ?= require './variation'
     variationStr = atom.config.get 'language-context-free.variation'
     unless Variation.isValid variationStr
       variationStr = 'A'
@@ -101,6 +90,22 @@ module.exports = ContextFreeRender =
   render: ->
     console.log 'render'
 
+    unless @platform
+      @platform = process.platform
+      console.log 'platform: ' + @platform
+
+      # WORKAROUND for linux tmp dir
+      if @platform is 'linux'
+        path ?= require 'path'
+        os ?= require 'os'
+        temp.dir = path.resolve os.tmpdir()
+
+      temp ?= require 'temp'
+      temp.track()
+      console.log 'temp.dir: ' + temp.dir
+      @tempDirPah = temp.mkdirSync 'atom-cfdg-'
+      console.log 'tempDirPah: ' + @tempDirPah
+
     unless @platform is 'darwin' or @platform is 'linux'
       atom.confirm
         message: "render not supported in #{@platform}."
@@ -115,6 +120,7 @@ module.exports = ContextFreeRender =
     console.log 'filePath: ' + filePath
     return unless filePath?
 
+    path ?= require 'path'
     fileName = path.basename filePath
     console.log 'fileName: ' + fileName
     return unless fileName?
@@ -151,6 +157,7 @@ module.exports = ContextFreeRender =
         buttons: ["OK"]
       return
 
+    fs ?= require 'fs-plus'
     unless fs.existsSync command
       commandName = path.basename command
       atom.confirm
@@ -192,6 +199,7 @@ module.exports = ContextFreeRender =
           buttons: ["OK"]
         return
 
+      VariationHolder ?= require './variation-holder'
       VariationHolder.putVariation(outFilePath, variation)
       @sendOpenCommand cfdgFileName, outFilePath
 
@@ -219,6 +227,7 @@ module.exports = ContextFreeRender =
   # cfdgFileName: The {String} name of cfdg file.
   # outFilePath: The {String} path of image output file.
   sendOpenCommand: (cfdgFileName, outFilePath) ->
+    utils ?= require './utils'
     uri = utils.uriForFile cfdgFileName, outFilePath
     console.log 'uri: ' + uri
     previousActivePane = atom.workspace.getActivePane()
@@ -235,6 +244,7 @@ module.exports = ContextFreeRender =
   openEditor: (uriToOpen) ->
     console.log 'addOpener - uriToOpen: ' + uriToOpen
     try
+      url ?= require 'url'
       {protocol, host, pathname, query} = url.parse uriToOpen, true
     catch error
       console.log 'error'
@@ -253,4 +263,5 @@ module.exports = ContextFreeRender =
       return
     console.log 'pathname: ' + pathname
 
+    CfdgImageEditor ?= require './cfdg-image-editor'
     new CfdgImageEditor cfdgFileName, pathname

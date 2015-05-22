@@ -1,4 +1,4 @@
-fs = require 'fs-plus'
+fs = null
 
 # Utilities.
 module.exports =
@@ -23,6 +23,7 @@ class Utils
       cb(err)
       cbCalled = true
 
+    fs ?= require 'fs-plus'
     rd = fs.createReadStream(source)
     rd.on "error", (err) ->
       done(err)
@@ -38,6 +39,7 @@ class Utils
   # filePath: The {String} file path to be removed.
   @rmFile: (filePath) ->
     return unless filePath?
+    fs ?= require 'fs-plus'
     return unless fs.existsSync filePath
     fs.unlinkSync filePath
 

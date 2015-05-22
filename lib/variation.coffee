@@ -1,4 +1,4 @@
-utils = require "./utils"
+utils = null
 
 # Variation code model.
 #
@@ -53,6 +53,7 @@ class Variation
     return @value = 'A' if (carry is 1) and (valueLen is 6)
 
     newValue = if carry is 1 then 'A' else ''
+    utils = require "./utils"
     utils.dumpObj codes
     for code in codes
       newValue = newValue + String.fromCharCode(code)
