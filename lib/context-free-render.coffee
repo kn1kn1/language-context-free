@@ -8,9 +8,6 @@ fs = null
 temp = null
 os = null
 
-{CompositeDisposable} = require 'atom'
-{BufferedProcess} = require 'atom'
-
 # Main module of the package.
 module.exports = ContextFreeRender =
   config:
@@ -76,6 +73,7 @@ module.exports = ContextFreeRender =
 
     # Events subscribed to in atom's system can be easily cleaned up
     # with a CompositeDisposable
+    {CompositeDisposable} = require 'atom'
     @subscriptions = new CompositeDisposable
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace',
@@ -206,6 +204,7 @@ module.exports = ContextFreeRender =
     timeout = atom.config.get 'language-context-free.renderTimeoutInMillis'
     console.log "timeout: #{timeout}"
 
+    {BufferedProcess} = require 'atom'
     cfdgProcess =
       new BufferedProcess {command, args, options, stdout, stderr, exit}
 
