@@ -94,13 +94,13 @@ module.exports = ContextFreeRender =
       @platform = process.platform
       console.log 'platform: ' + @platform
 
+      temp ?= require 'temp'
       # WORKAROUND for linux tmp dir
       if @platform is 'linux'
         path ?= require 'path'
         os ?= require 'os'
         temp.dir = path.resolve os.tmpdir()
 
-      temp ?= require 'temp'
       temp.track()
       console.log 'temp.dir: ' + temp.dir
       @tempDirPah = temp.mkdirSync 'atom-cfdg-'
