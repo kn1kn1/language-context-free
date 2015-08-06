@@ -3,8 +3,7 @@ Variation = require './variation'
 VariationHolder = require './variation-holder'
 path = require 'path'
 fs = require 'fs-plus'
-{File} = require 'pathwatcher'
-{CompositeDisposable} = require 'atom'
+{File, CompositeDisposable} = require 'atom'
 
 # Editor model for an image file.
 module.exports =
