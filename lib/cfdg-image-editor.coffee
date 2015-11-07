@@ -66,7 +66,8 @@ class CfdgImageEditor
   #
   # Returns a {String}.
   getURI: ->
-    filepath = @file.getPath()
+    filepath = encodeURI(@getPath()).replace(/#/g, '%23').replace(/\?/g, '%3F')
+#    filepath = @file.getPath()
     utils.uriForFile(@cfdgFileName, filepath)
 
   # Retrieves the absolute path to the image.
