@@ -231,7 +231,7 @@ module.exports = ContextFreeRender =
     console.log 'uri: ' + uri
     previousActivePane = atom.workspace.getActivePane()
     atom.workspace.open(uri, split: 'right', searchAllPanes: true)
-      .done (openedEditor) ->
+      .then (openedEditor) ->
         console.log 'openedEditor.getTitle()): ' + openedEditor.getTitle()
         console.log 'openedEditor.getURI()): ' + openedEditor.getURI()
         console.log 'openedEditor.getPath()): ' + openedEditor.getPath()
