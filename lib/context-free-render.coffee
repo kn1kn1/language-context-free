@@ -79,7 +79,7 @@ module.exports = ContextFreeRender =
     @subscriptions.add atom.commands.add 'atom-workspace',
       'context-free:render': => @render()
 
-    atom.workspace.addOpener @openEditor
+    @subscriptions.add atom.workspace.addOpener @openEditor
 
   deactivate: ->
     @subscriptions.dispose()
