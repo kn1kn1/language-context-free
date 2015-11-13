@@ -2,7 +2,6 @@ CfdgImageEditor = require '../lib/cfdg-image-editor'
 ContextFreeRender = require '../lib/context-free-render'
 utils = require '../lib/utils'
 path = require 'path'
-{TextEditor} = require 'atom'
 
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
@@ -42,7 +41,7 @@ describe "ContextFreeRender", ->
         atom.workspace.open(path.join(__dirname, 'fixtures', 'Clovers.cfdg'))
 
       waitsFor ->
-        atom.workspace.getActivePaneItem() instanceof TextEditor
+        atom.workspace.getActivePaneItem() && atom.workspace.getActivePaneItem().getText()
 
       runs ->
         expect(atom.workspace.getActivePaneItem().getTitle()).toBe 'Clovers.cfdg'
@@ -64,7 +63,7 @@ describe "ContextFreeRender", ->
         atom.workspace.open(path.join(__dirname, 'fixtures', 'Clovers.cfdg'))
 
       waitsFor ->
-        atom.workspace.getActivePaneItem() instanceof TextEditor
+        atom.workspace.getActivePaneItem() && atom.workspace.getActivePaneItem().getText()
 
       runs ->
         expect(atom.workspace.getActivePaneItem().getTitle()).toBe 'Clovers.cfdg'
@@ -92,7 +91,7 @@ describe "ContextFreeRender", ->
         atom.workspace.open(path.join(__dirname, 'fixtures', 'Clovers.cfdg'))
 
       waitsFor ->
-        atom.workspace.getActivePaneItem() instanceof TextEditor
+        atom.workspace.getActivePaneItem() && atom.workspace.getActivePaneItem().getText()
 
       runs ->
         expect(atom.workspace.getActivePaneItem().getTitle()).toBe 'Clovers.cfdg'
@@ -115,7 +114,7 @@ describe "ContextFreeRender", ->
         atom.workspace.open(path.join(__dirname, 'fixtures', cfdgFile))
 
       waitsFor ->
-        atom.workspace.getActivePaneItem() instanceof TextEditor
+        atom.workspace.getActivePaneItem() && atom.workspace.getActivePaneItem().getText()
 
       runs ->
         expect(atom.workspace.getActivePaneItem().getTitle()).toBe cfdgFile
