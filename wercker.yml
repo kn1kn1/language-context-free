@@ -1,7 +1,8 @@
-box: wercker-labs/docker
+box: kn1kn1/atom-apm-test
+
 build:
   steps:
     - script:
-        name: docker build
+        name: apm install and test
         code: |
-          docker build .
+          ./wercker.sh
