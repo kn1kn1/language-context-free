@@ -25,3 +25,4 @@ Please set "cfdg Command Path" setting and render *.cfdg files via the shortcut 
 
 [![Build Status](https://travis-ci.org/kn1kn1/language-context-free.svg?branch=master)](https://travis-ci.org/kn1kn1/language-context-free)
 [![Circle CI](https://circleci.com/gh/kn1kn1/language-context-free.png?style=shield)](https://circleci.com/gh/kn1kn1/language-context-free)
+[![wercker status](https://app.wercker.com/status/005e3657c1a81d0fcaceafa0980fcb99/m "wercker status")](https://app.wercker.com/project/bykey/005e3657c1a81d0fcaceafa0980fcb99)
