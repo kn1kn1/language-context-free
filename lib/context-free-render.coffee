@@ -248,8 +248,14 @@ module.exports = ContextFreeRender =
     catch error
       console.log 'error'
       return
-    console.log 'protocol: ' + protocol + ', host: ' + host + ', pathname: ' +
-      pathname + ', query: ' + query
+    # Remove console output for errors with atom-beta (1.12.0-beta1)
+    #   TypeError: Cannot convert object to primitive value
+    #     at openEditor (/root/lib/context-free-render.coffee:251:17)
+    #     at Workspace.module.exports.Workspace.openURIInPane (/usr/share/atom-beta/resources/app.asar/src/workspace.js:501:22)
+    #     at Workspace.module.exports.Workspace.open (/usr/share/atom-beta/resources/app.asar/src/workspace.js:436:19)
+    #     at .<anonymous> (/root/spec/context-free-render-spec.coffee:39:24)
+    # console.log 'protocol: ' + protocol + ', host: ' + host + ', pathname: ' +
+    #   pathname + ', query: ' + query
     return unless protocol is 'context-free-render:'
 
     cfdgFileName = query['cfdg']
