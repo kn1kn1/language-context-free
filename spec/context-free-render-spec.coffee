@@ -3,6 +3,8 @@ ContextFreeRender = require '../lib/context-free-render'
 utils = require '../lib/utils'
 path = require 'path'
 
+getCenter = -> atom.workspace.getCenter?() ? atom.workspace
+
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
 # To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
@@ -119,14 +121,14 @@ describe "ContextFreeRender", ->
         mainModule.sendOpenCommand cfdgFile, path.join(__dirname, 'fixtures', pngFile)
 
       waitsFor ->
-        atom.workspace.getPanes().length > 1
+        getCenter().getPanes().length > 1
 
       waitsFor ->
-        atom.workspace.getPanes()[1].getItems().length > 0
+        getCenter().getPanes()[1].getItems().length > 0
 
       runs ->
-        expect(atom.workspace.getPanes()).toHaveLength 2
-        [leftPane, rightPane] = atom.workspace.getPanes()
+        expect(getCenter().getPanes()).toHaveLength 2
+        [leftPane, rightPane] = getCenter().getPanes()
 
         expect(leftPane.isActive()).toBe true
         expect(leftPane.getItems()).toHaveLength 1
