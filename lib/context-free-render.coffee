@@ -135,7 +135,7 @@ module.exports = ContextFreeRender =
     else
       @addVariation = true
 
-    cwd = process.cwd
+    cwd = process.cwd()
     env = process.env
     @execCfdg fileName, filePath, @variation.value, cwd, env
 
